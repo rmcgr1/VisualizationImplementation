@@ -1,0 +1,25 @@
+Columheader,Description
+STATE_NAME,state_name
+KEY,
+ID,FIPS
+rate_brcamort9397,age adjusted breast cancer mortality rate for 1993-97
+MDratio,physicians per 1000 population
+hosp,"# hospitals per 1000 pop"""
+hosponc,"# hospitals with oncology service per 1000 pop"""
+scrnmamm,mammography screening facilities per 1000 pop
+pcturban,pcturban
+urbrural,"USDA urban/rural code (0=most urban, 9=most rural)"""
+pcincome,"per capita income"""
+pctpoor,"per capita income"""
+pctlt9ed,% adults over 25 with less than 9th grade education
+pcthsed,% adults over 25 with high school education
+pctcoled,"% adults over 25 with 4+ years of college education"""
+unemploy,% unemployed
+homevalu,median house value
+rent,median rent
+pop96,1996 pop
+mammog2ysm,% women ages 50-64 who had a mammogram in past 2 years
+SmokecurF,% of females ages 18+ who are current cigarette smokers
+SmokevrF,% of females ages 18+ who ever smoked cigarettes
+Obese,"% of persons ages 18+ who are >120% of the median body mass index"""
+Noins,% of persons ages 18+ who do not have a health plan or health insurance

@@ -1,0 +1,8 @@
+ColumnHeader,Description,GraphicTimeValue
+"FIPS    ","State/County FIPS Code",
+"Rate7175","1971-1975 Age-Adjusted Rate (per 100,000)",1973
+"Rate7680","1976-1980 Age-Adjusted Rate (per 100,000)",1978
+"Rate8185","1981-1985 Age-Adjusted Rate (per 100,000)",1983
+"Rate8690","1986-1990 Age-Adjusted Rate (per 100,000)",1988
+"Rate9195","1991-1995 Age-Adjusted Rate (per 100,000)",1993
+"Rate9600","1996-2000 Age-Adjusted Rate (per 100,000)",1998
