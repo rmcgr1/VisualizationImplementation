@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html dir="ltr" class="client-nojs" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8"><title>Self-organizing map - Wikipedia, the free encyclopedia</title>
+<meta name="generator" content="MediaWiki 1.22wmf19">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit">
+<link rel="shortcut icon" href="http://bits.wikimedia.org/favicon/wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+<link rel="canonical" href="http://en.wikipedia.org/wiki/Self-organizing_map">
+<link rel="stylesheet" href="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.css">
+<meta name="ResourceLoaderDynamicStyles" content="">
+<link rel="stylesheet" href="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.css">
+<style>a:lang(ar),a:lang(ckb),a:lang(kk-arab),a:lang(mzn),a:lang(ps),a:lang(ur){text-decoration:none}
+/* cache key: enwiki:resourceloader:filter:minify-css:7:0de201fdea5d684523607ed88007b127 */</style>
+
+<script src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load_002.js"></script>
+<script>if(window.mw){
+mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Self-organizing_map","wgTitle":"Self-organizing map","wgCurRevisionId":571895297,"wgRevisionId":571895297,"wgArticleId":76996,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles needing cleanup from June 2011","All articles needing cleanup","Cleanup tagged articles without a reason field from June 2011","Wikipedia pages needing cleanup from June 2011","All articles with unsourced statements","Articles with unsourced statements from September 2012","Articles needing additional references from February 2010","All articles needing additional references","Commons category template with no category set","Commons category with page title same as on Wikidata","Neural networks","Dimension reduction","Data clustering algorithms"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Self-organizing_map","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgVectorEnabledModules":{"collapsiblenav":true,"experiments":true},"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"hidesig":true,"templateEditor":false,"templates":false,"preview":false,"previewDialog":false,"publish":false,"toc":false},"wgArticleFeedbackv5Permissions":{"aft-reader":true,"aft-member":false,"aft-editor":false,"aft-monitor":false,"aft-administrator":false,"aft-oversighter":false,"aft-noone":false},"wgVisualEditor":{"isPageWatched":false,"magnifyClipIconURL":"//bits.wikimedia.org/static-1.22wmf19/skins/common/images/magnify-clip.png","pageLanguageCode":"en","pageLanguageDir":"ltr"},"wikilove-recipient":"","wikilove-anon":0,"wgGuidedTourHelpGuiderUrl":"Help:Guided tours/guider","wgULSAcceptLanguageList":["en-us","en"],"wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","Geo":{"city":"","country":""},"wgNoticeProject":"wikipedia","aftv5Article":{"id":76996,"title":"Self-organizing map","namespace":0,"categories":["All articles needing additional references","All articles needing cleanup","All articles with unsourced statements","Articles needing additional references from February 2010","Articles needing cleanup from June 2011","Articles with unsourced statements from September 2012","Cleanup tagged articles without a reason field from June 2011","Commons category template with no category set","Commons category with page title same as on Wikidata","Data clustering algorithms","Dimension reduction","Neural networks","Wikipedia pages needing cleanup from June 2011"],"permissionLevel":false},"wgWikibaseItemId":"Q1136838"});
+}</script><script>if(window.mw){
+mw.loader.implement("user.options",function(){mw.user.options.set({"ccmeonemails":0,"cols":80,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"imagesize":2,"justify":0,"math":0,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":false,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":4,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":1,"watchdefault":0,"watchdeletion":0,"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,
+"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"useeditwarning":1,"prefershttps":1,"flaggedrevssimpleui":1,"flaggedrevsstable":0,"flaggedrevseditdiffs":true,"flaggedrevsviewdiffs":false,"vector-simplesearch":1,"vector-collapsiblenav":1,"usebetatoolbar":1,"usebetatoolbar-cgd":1,"aftv5-last-filter":null,"visualeditor-enable":0,"visualeditor-enable-experimental":0,"visualeditor-betatempdisable":0,"wikilove-enabled":1,"echo-subscriptions-web-page-review":true,"echo-subscriptions-email-page-review":false,"ep_showtoplink":false,"ep_bulkdelorgs":false,"ep_bulkdelcourses":true,"ep_showdyk":true,"echo-notify-show-link":true,"echo-show-alert":true,"echo-email-frequency":0,"echo-email-format":"html","echo-subscriptions-email-system":true,"echo-subscriptions-web-system":true,"echo-subscriptions-email-other":false,"echo-subscriptions-web-other":true,"echo-subscriptions-email-edit-user-talk":false,"echo-subscriptions-web-edit-user-talk":true,
+"echo-subscriptions-email-reverted":false,"echo-subscriptions-web-reverted":true,"echo-subscriptions-email-article-linked":false,"echo-subscriptions-web-article-linked":false,"echo-subscriptions-email-mention":false,"echo-subscriptions-web-mention":true,"echo-subscriptions-web-edit-thank":true,"echo-subscriptions-email-edit-thank":false,"gettingstarted-task-toolbar-show-intro":true,"uls-preferences":"","language":"en","variant-gan":"gan","variant-iu":"iu","variant-kk":"kk","variant-ku":"ku","variant-shi":"shi","variant-sr":"sr","variant-tg":"tg","variant-uz":"uz","variant-zh":"zh","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false,"searchNs100":false,"searchNs101":false,"searchNs108":false,"searchNs109":false,"searchNs446":false,"searchNs447":false
+,"searchNs710":false,"searchNs711":false,"searchNs828":false,"searchNs829":false,"gadget-teahouse":1,"gadget-ReferenceTooltips":1,"gadget-DRN-wizard":1,"gadget-charinsert":1,"gadget-mySandbox":1,"variant":"en"});},{},{});mw.loader.implement("user.tokens",function(){mw.user.tokens.set({"editToken":"+\\","patrolToken":false,"watchToken":false});},{},{});
+/* cache key: enwiki:resourceloader:filter:minify-js:7:156d8fe0ae17f8afd74198057563e45d */
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","mediawiki.legacy.ajax","ext.centralauth.centralautologin","ext.visualEditor.viewPageTarget.init","ext.wikimediaShopLink.core","ext.uls.init","ext.uls.interface","wikibase.client.init","ext.centralNotice.bannerController","skins.vector.js"]);
+}</script>
+<script src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/geoiplookup.js"></script><link rel="dns-prefetch" href="http://meta.wikimedia.org/"><!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/static-1.22wmf19/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Self-organizing_map skin-vector action-view vector-animateLayout">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<div id="siteNotice"><!-- CentralNotice --></div>
+						<h1 id="firstHeading" class="firstHeading" lang="en"><span dir="auto">Self-organizing map</span></h1>
+			<div id="bodyContent">
+								<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+					Jump to:					<a href="#mw-navigation">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table class="metadata plainlinks ambox ambox-style ambox-Cleanup" style="" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/40px-Edit-clear.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/f/f2/Edit-clear.svg/60px-Edit-clear.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/f/f2/Edit-clear.svg/80px-Edit-clear.svg.png 2x" height="40" width="40"></div>
+</td>
+<td class="mbox-text" style=""><span class="mbox-text-span">This article <b>may require <a href="http://en.wikipedia.org/wiki/Wikipedia:Cleanup" title="Wikipedia:Cleanup">cleanup</a> to meet Wikipedia's <a href="http://en.wikipedia.org/wiki/Wikipedia:Manual_of_Style" title="Wikipedia:Manual of Style">quality standards</a></b>. <span class="hide-when-compact">No <a href="http://en.wikipedia.org/wiki/Template:Cleanup/doc" title="Template:Cleanup/doc">cleanup reason</a> has been specified. Please help <a class="external text" href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit">improve this article</a> if you can.</span> <small><i>(June 2011)</i></small> </span></td>
+</tr>
+</tbody></table>
+<p>A <b>self-organizing map</b> (<b>SOM</b>) or <b>self-organizing feature map</b> (<b>SOFM</b>) is a type of <a href="http://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">artificial neural network</a> (ANN) that is trained using <a href="http://en.wikipedia.org/wiki/Unsupervised_learning" title="Unsupervised learning">unsupervised learning</a>
+ to produce a low-dimensional (typically two-dimensional), discretized 
+representation of the input space of the training samples, called a <b>map</b>.
+ Self-organizing maps are different from other artificial neural 
+networks in the sense that they use a neighborhood function to preserve 
+the <a href="http://en.wikipedia.org/wiki/Topology" title="Topology">topological</a> properties of the input space.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:302px;"><a href="http://en.wikipedia.org/wiki/File:Synapse_Self-Organizing_Map.png" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/300px-Synapse_Self-Organizing_Map.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/7/70/Synapse_Self-Organizing_Map.png/450px-Synapse_Self-Organizing_Map.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/7/70/Synapse_Self-Organizing_Map.png/600px-Synapse_Self-Organizing_Map.png 2x" height="282" width="300"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Synapse_Self-Organizing_Map.png" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+A self-organizing map showing <a href="http://en.wikipedia.org/wiki/United_States_Congress" title="United States Congress">U.S. Congress</a> voting patterns visualized in <a href="http://en.wikipedia.org/wiki/Peltarion_Synapse" title="Peltarion Synapse">Synapse</a>.
+ The first two boxes show clustering and distances while the remaining 
+ones show the component planes. Red means a yes vote while blue means a 
+no vote in the component planes (except the party component where red is
+ <a href="http://en.wikipedia.org/wiki/Republican_Party_%28United_States%29" title="Republican Party (United States)">Republican</a> and blue is <a href="http://en.wikipedia.org/wiki/Democratic_Party_%28United_States%29" title="Democratic Party (United States)">Democratic</a>).</div>
+</div>
+</div>
+<p>This makes SOMs useful for <a href="http://en.wikipedia.org/wiki/Scientific_visualization" title="Scientific visualization">visualizing</a> low-dimensional views of high-dimensional data, akin to <a href="http://en.wikipedia.org/wiki/Multidimensional_scaling" title="Multidimensional scaling">multidimensional scaling</a>. The model was first described as an artificial neural network by the <a href="http://en.wikipedia.org/wiki/Finland" title="Finland">Finnish</a> professor <a href="http://en.wikipedia.org/wiki/Teuvo_Kohonen" title="Teuvo Kohonen">Teuvo Kohonen</a>, and is sometimes called a <b>Kohonen map</b> or <b>network</b>.<sup id="cite_ref-KohonenMap_1-0" class="reference"><a href="#cite_note-KohonenMap-1"><span>[</span>1<span>]</span></a></sup><sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>2<span>]</span></a></sup></p>
+<p>Like most artificial neural networks, SOMs operate in two modes: 
+training and mapping. "Training" builds the map using input examples (a <a href="http://en.wikipedia.org/wiki/Competitive_learning" title="Competitive learning">competitive process</a>, also called <a href="http://en.wikipedia.org/wiki/Vector_quantization" title="Vector quantization">vector quantization</a>), while "mapping" automatically classifies a new input vector.</p>
+<p>A self-organizing map consists of components called nodes or neurons.
+ Associated with each node is a weight vector of the same dimension as 
+the input data vectors and a position in the map space. The usual 
+arrangement of nodes is a two-dimensional regular spacing in a <a href="http://en.wikipedia.org/wiki/Hexagonal" title="Hexagonal" class="mw-redirect">hexagonal</a> or <a href="http://en.wikipedia.org/wiki/Rectangular" title="Rectangular" class="mw-redirect">rectangular</a>
+ grid. The self-organizing map describes a mapping from a higher 
+dimensional input space to a lower dimensional map space. The procedure 
+for placing a vector from data space onto the map is to find the node 
+with the closest (smallest distance metric) weight vector to the data 
+space vector.</p>
+<p>While it is typical to consider this type of network structure as related to <a href="http://en.wikipedia.org/wiki/Feedforward_neural_networks" title="Feedforward neural networks" class="mw-redirect">feedforward networks</a>
+ where the nodes are visualized as being attached, this type of 
+architecture is fundamentally different in arrangement and motivation.</p>
+<p>Useful extensions include using <a href="http://en.wikipedia.org/wiki/Torus" title="Torus">toroidal</a> grids where opposite edges are connected and using large numbers of nodes. <span class="citation-needed-content" style="background-color:#fff9f9; color:DarkSlateGray;border:1px solid #ffdcdc">It has been shown that while self-organizing maps with a small number of nodes behave in a way that is similar to <a href="http://en.wikipedia.org/wiki/K-means_algorithm" title="K-means algorithm" class="mw-redirect">K-means</a>, larger self-organizing maps rearrange data in a way that is fundamentally topological in character.</span><sup class="Template-Fact" style="white-space:nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources. (September 2012)">citation needed</span></a></i>]</sup></p>
+<p>It is also common to use the <a href="http://en.wikipedia.org/wiki/U-Matrix" title="U-Matrix" class="mw-redirect">U-Matrix</a>.<sup id="cite_ref-UltschSiemon1990_3-0" class="reference"><a href="#cite_note-UltschSiemon1990-3"><span>[</span>3<span>]</span></a></sup> The U-Matrix value of a particular node is the average distance between the node and its closest neighbors.<sup id="cite_ref-Ultsch2003_4-0" class="reference"><a href="#cite_note-Ultsch2003-4"><span>[</span>4<span>]</span></a></sup> In a square grid, for instance, we might consider the closest 4 or 8 nodes (the <a href="http://en.wikipedia.org/wiki/Von_Neumann_neighborhood" title="Von Neumann neighborhood">Von Neumann</a> and <a href="http://en.wikipedia.org/wiki/Moore_neighborhood" title="Moore neighborhood">Moore neighborhoods</a>, respectively), or six nodes in a hexagonal grid.</p>
+<p>Large SOMs display emergent properties. In maps consisting of 
+thousands of nodes, it is possible to perform cluster operations on the 
+map itself.<sup id="cite_ref-Ultsch2007_5-0" class="reference"><a href="#cite_note-Ultsch2007-5"><span>[</span>5<span>]</span></a></sup></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Learning_algorithm"><span class="tocnumber">1</span> <span class="toctext">Learning algorithm</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Preliminary_definitions"><span class="tocnumber">1.1</span> <span class="toctext">Preliminary definitions</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Variables"><span class="tocnumber">1.2</span> <span class="toctext">Variables</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Algorithm"><span class="tocnumber">1.3</span> <span class="toctext">Algorithm</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-5"><a href="#Interpretation"><span class="tocnumber">2</span> <span class="toctext">Interpretation</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Alternatives"><span class="tocnumber">3</span> <span class="toctext">Alternatives</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<h2><span class="mw-headline" id="Learning_algorithm">Learning algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=1" title="Edit section: Learning algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The goal of learning in the self-organizing map is to cause different
+ parts of the network to respond similarly to certain input patterns. 
+This is partly motivated by how visual, auditory or other <a href="http://en.wikipedia.org/wiki/Sense" title="Sense">sensory</a> information is handled in separate parts of the <a href="http://en.wikipedia.org/wiki/Cerebral_cortex" title="Cerebral cortex">cerebral cortex</a> in the <a href="http://en.wikipedia.org/wiki/Human_brain" title="Human brain">human brain</a>.<sup id="cite_ref-Haykin_6-0" class="reference"><a href="#cite_note-Haykin-6"><span>[</span>6<span>]</span></a></sup></p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:502px;"><a href="http://en.wikipedia.org/wiki/File:Somtraining.svg" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/500px-Somtraining.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/9/91/Somtraining.svg/750px-Somtraining.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/9/91/Somtraining.svg/1000px-Somtraining.svg.png 2x" height="135" width="500"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Somtraining.svg" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+An illustration of the training of a self-organizing map. The blue blob 
+is the distribution of the training data, and the small white disc is 
+the current training datum drawn from that distribution. At first (left)
+ the SOM nodes are arbitrarily positioned in the data space. The node 
+(highlighted in yellow) which is nearest to the training datum is 
+selected. It is moved towards the training datum, as (to a lesser 
+extent) are its neighbors on the grid. After many iterations the grid 
+tends to approximate the data distribution (right).</div>
+</div>
+</div>
+<p>The weights of the neurons are initialized either to small random 
+values or sampled evenly from the subspace spanned by the two largest <a href="http://en.wikipedia.org/wiki/Principal_component" title="Principal component" class="mw-redirect">principal component</a> <a href="http://en.wikipedia.org/wiki/Eigenvectors" title="Eigenvectors" class="mw-redirect">eigenvectors</a>.
+ With the latter alternative, learning is much faster because the 
+initial weights already give a good approximation of SOM weights.<sup id="cite_ref-SOMIntro_7-0" class="reference"><a href="#cite_note-SOMIntro-7"><span>[</span>7<span>]</span></a></sup></p>
+<p>The network must be fed a large number of example vectors that 
+represent, as close as possible, the kinds of vectors expected during 
+mapping. The examples are usually administered several times as 
+iterations.</p>
+<p>The training utilizes <a href="http://en.wikipedia.org/wiki/Competitive_learning" title="Competitive learning">competitive learning</a>. When a training example is fed to the network, its <a href="http://en.wikipedia.org/wiki/Euclidean_distance" title="Euclidean distance">Euclidean distance</a>
+ to all weight vectors is computed. The neuron whose weight vector is 
+most similar to the input is called the best matching unit (BMU). The 
+weights of the BMU and neurons close to it in the SOM lattice are 
+adjusted towards the input vector. The magnitude of the change decreases
+ with time and with distance (within the lattice) from the BMU. The 
+update formula for a neuron with weight vector <b>Wv</b>(s) is</p>
+<dl>
+<dd><b>Wv</b>(s + 1) = <b>Wv</b>(s) + Θ(u, v, s) α(s)(<b>D</b>(t) - <b>Wv</b>(s)),</dd>
+</dl>
+<p>where s is the step index, t an index into the training sample, u is the index of the BMU for <b>D</b>(t), α(s) is a <a href="http://en.wikipedia.org/wiki/Monotonically_decreasing" title="Monotonically decreasing" class="mw-redirect">monotonically decreasing</a> learning coefficient and <b>D</b>(t) is the input vector; v is assumed to visit all neurons for every value of s and t.<sup id="cite_ref-Scholarpedia_8-0" class="reference"><a href="#cite_note-Scholarpedia-8"><span>[</span>8<span>]</span></a></sup>
+ Depending on the implementations, t can scan the training data set 
+systematically (t is 0, 1, 2...T-1, then repeat, T being the training 
+sample's size), be randomly drawn from the data set (<a href="http://en.wikipedia.org/wiki/Bootstrap_sampling" title="Bootstrap sampling" class="mw-redirect">bootstrap sampling</a>), or implement some other sampling method (such as <a href="http://en.wikipedia.org/wiki/Resampling_%28statistics%29#Jackknife" title="Resampling (statistics)">jackknifing</a>).</p>
+<p>The neighborhood function Θ(u, v, s) depends on the lattice distance between the BMU (neuron <i>u</i>) and neuron <i>v</i>. In the simplest form it is 1 for all neurons close enough to BMU and 0 for others, but a <a href="http://en.wikipedia.org/wiki/Gaussian_function" title="Gaussian function">Gaussian function</a> is a common choice, too. Regardless of the functional form, the neighborhood function shrinks with time.<sup id="cite_ref-Haykin_6-1" class="reference"><a href="#cite_note-Haykin-6"><span>[</span>6<span>]</span></a></sup>
+ At the beginning when the neighborhood is broad, the self-organizing 
+takes place on the global scale. When the neighborhood has shrunk to 
+just a couple of neurons, the weights are converging to local estimates.
+ In some implementations the learning coefficient α and the neighborhood
+ function Θ decrease steadily with increasing s, in others (in 
+particular those where t scans the training data set) they decrease in 
+step-wise fashion, once every T steps.</p>
+<p>This process is repeated for each input vector for a (usually large) number of cycles <b>λ</b>.
+ The network winds up associating output nodes with groups or patterns 
+in the input data set. If these patterns can be named, the names can be 
+attached to the associated nodes in the trained net.</p>
+<p>During mapping, there will be one single <i>winning</i> neuron: the 
+neuron whose weight vector lies closest to the input vector. This can be
+ simply determined by calculating the Euclidean distance between input 
+vector and weight vector.</p>
+<p>While representing input data as vectors has been emphasized in this 
+article, it should be noted that any kind of object which can be 
+represented digitally, which has an appropriate distance measure 
+associated with it, and in which the necessary operations for training 
+are possible can be used to construct a self-organizing map. This 
+includes matrices, continuous functions or even other self-organizing 
+maps.</p>
+<h3><span class="mw-headline" id="Preliminary_definitions">Preliminary definitions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=2" title="Edit section: Preliminary definitions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<table class="metadata plainlinks ambox ambox-content ambox-Unreferenced" style="" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><a href="http://en.wikipedia.org/wiki/File:Question_book-new.svg" class="image"><img alt="Question book-new.svg" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/50px-Question_book-new.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/75px-Question_book-new.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/100px-Question_book-new.svg.png 2x" height="39" width="50"></a></div>
+</td>
+<td class="mbox-text" style=""><span class="mbox-text-span">This section <b>does not <a href="http://en.wikipedia.org/wiki/Wikipedia:Citing_sources" title="Wikipedia:Citing sources">cite</a> any <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability" title="Wikipedia:Verifiability">references or sources</a></b>. <span class="hide-when-compact">Please help improve this section by <a href="http://en.wikipedia.org/wiki/Help:Introduction_to_referencing/1" title="Help:Introduction to referencing/1">adding citations to reliable sources</a>. Unsourced material may be challenged and <a href="http://en.wikipedia.org/wiki/Wikipedia:Verifiability#Burden_of_evidence" title="Wikipedia:Verifiability">removed</a>.</span> <small><i>(February 2010)</i></small> </span></td>
+</tr>
+</tbody></table>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:SOM_of_RGB_and_eight_colors.JPG" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-SOM_of_RGB_and_eight_colors.JPG" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/en/thumb/1/1b/SOM_of_RGB_and_eight_colors.JPG/330px-SOM_of_RGB_and_eight_colors.JPG 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/1/1b/SOM_of_RGB_and_eight_colors.JPG/440px-SOM_of_RGB_and_eight_colors.JPG 2x" height="155" width="220"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:SOM_of_RGB_and_eight_colors.JPG" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+Self organizing maps (SOM) of three and eight colors with U-Matrix.</div>
+</div>
+</div>
+<p>Consider an n×m array of nodes, each of which contains a weight 
+vector and is aware of its location in the array. Each weight vector is 
+of the same dimension as the node's input vector. The weights may 
+initially be set to random values.</p>
+<p>Now we need input to feed the map —The generated map and the given 
+input exist in separate subspaces. We will create three vectors to 
+represent colors. Colors can be represented by their red, green, and 
+blue components. Consequently our input vectors will have three 
+components, each corresponding to a color space. The input vectors will 
+be:</p>
+<dl>
+<dd>R = &lt;255, 0, 0&gt;</dd>
+<dd>G = &lt;0, 255, 0&gt;</dd>
+<dd>B = &lt;0, 0, 255&gt;</dd>
+</dl>
+<p>The color training vector data sets used in SOM:</p>
+<dl>
+<dd>threeColors = [255, 0, 0], [0, 255, 0], [0, 0, 255]</dd>
+<dd>eightColors = [0, 0, 0], [255, 0, 0], [0, 255, 0], [0, 0, 255], [255, 255, 0], [0, 255, 255], [255, 0, 255], [255, 255, 255]</dd>
+</dl>
+<p>The data vectors should preferably be normalized (vector length is equal to one) before training the SOM.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:SOM_of_Fishers_Iris_flower_data_set.JPG" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-SOM_of_Fishers_Iris_flower_data_set.JPG" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/en/thumb/2/25/SOM_of_Fishers_Iris_flower_data_set.JPG/330px-SOM_of_Fishers_Iris_flower_data_set.JPG 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/2/25/SOM_of_Fishers_Iris_flower_data_set.JPG/440px-SOM_of_Fishers_Iris_flower_data_set.JPG 2x" height="205" width="220"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:SOM_of_Fishers_Iris_flower_data_set.JPG" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+Self organizing map of Fisher's Iris flower data.</div>
+</div>
+</div>
+<p>Neurons (40×40 square grid) are trained for 250 iterations with a learning rate of 0.1 using the normalized <a href="http://en.wikipedia.org/wiki/Iris_flower_data_set" title="Iris flower data set">Iris flower data set</a>
+ which has four-dimensional data vectors. Shown are: a color image 
+formed by the first three dimensions of the four-dimensional SOM weight 
+vectors (top left), a pseudo-color image of the magnitude of the SOM 
+weight vectors (top right), a U-Matrix (Euclidean distance between 
+weight vectors of neighboring cells) of the SOM (bottom left), and an 
+overlay of data points (red: <i>I. setosa</i>, green: <i>I. versicolor</i> and blue: <i>I. virginica</i>) on the U-Matrix based on the minimum Euclidean distance between data vectors and SOM weight vectors (bottom right).</p>
+<h3><span class="mw-headline" id="Variables">Variables</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=3" title="Edit section: Variables">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>These are the variables needed, with vectors in bold,</p>
+<ul>
+<li><img class="tex" alt="s" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/03c7c0ace395d80182db07ae2c30f034.png"> is the current iteration</li>
+<li><img class="tex" alt="\lambda" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/e05a30d96800384dd38b22851322a6b5.png"> is the iteration limit</li>
+<li><img class="tex" alt="t" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/e358efa489f58062f10dd7316b65649e.png"> is the index of the target input data vector in the input data set <img class="tex" alt="\mathbf{D}" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/5b711f39bd91a89cc7b4cb4ec592eaa7.png"></li>
+<li><img class="tex" alt="\mathbf{D(t)}" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/62c27057a4315f0be07003336bba8208.png"> is a target input data vector</li>
+<li><img class="tex" alt="v" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/9e3669d19b675bd57058fd4664205d2a.png"> is the index of the node in the map</li>
+<li><img class="tex" alt="\mathbf{Wv}" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/0c3d63d0085ab7ec14bdbf215ecab8aa.png"> is the current weight vector of node <i>v</i></li>
+<li><img class="tex" alt="u" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/7b774effe4a349c6dd82ad4f4f21d34c.png"> is the index of the best matching unit (BMU) in the map</li>
+<li><img class="tex" alt="\Theta (u, v, s)" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/cc893405886064b7d00c0f3250e336a1.png"> is a restraint due to distance from BMU, usually called the neighborhood function, and</li>
+<li><img class="tex" alt="\alpha (s)" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/6e696a5c519c45d9067b147714c3d56f.png"> is a learning restraint due to iteration progress.</li>
+</ul>
+<h3><span class="mw-headline" id="Algorithm">Algorithm</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=4" title="Edit section: Algorithm">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ol>
+<li>Randomize the map's nodes' weight vectors</li>
+<li>Grab an input vector <img class="tex" alt="\mathbf{D(t)}" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/62c27057a4315f0be07003336bba8208.png"></li>
+<li>Traverse each node in the map
+<ol>
+<li>Use the <a href="http://en.wikipedia.org/wiki/Euclidean_distance" title="Euclidean distance">Euclidean distance</a> formula to find the similarity between the input vector and the map's node's weight vector</li>
+<li>Track the node that produces the smallest distance (this node is the best matching unit, BMU)</li>
+</ol>
+</li>
+<li>Update the nodes in the neighborhood of the BMU (including the BMU itself) by pulling them closer to the input vector
+<ol>
+<li><b>Wv</b>(s + 1) = <b>Wv</b>(s) + Θ(u, v, s) α(s)(<b>D</b>(t) - <b>Wv</b>(s))</li>
+</ol>
+</li>
+<li>Increase s and repeat from step 2 while <img class="tex" alt="s &lt; \lambda" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/721ba3191d7a80c98c18122100fb25a1.png"></li>
+</ol>
+<p>A variant algorithm:</p>
+<ol>
+<li>Randomize the map's nodes' weight vectors</li>
+<li>Traverse each input vector in the input data set
+<ol>
+<li>Traverse each node in the map
+<ol>
+<li>Use the <a href="http://en.wikipedia.org/wiki/Euclidean_distance" title="Euclidean distance">Euclidean distance</a> formula to find the similarity between the input vector and the map's node's weight vector</li>
+<li>Track the node that produces the smallest distance (this node is the best matching unit, BMU)</li>
+</ol>
+</li>
+<li>Update the nodes in the neighborhood of the BMU (including the BMU itself) by pulling them closer to the input vector
+<ol>
+<li><b>Wv</b>(s + 1) = <b>Wv</b>(s) + Θ(u, v, s) α(s)(<b>D</b>(t) - <b>Wv</b>(s))</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Increase s and repeat from step 2 while <img class="tex" alt="s &lt; \lambda" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/721ba3191d7a80c98c18122100fb25a1.png"></li>
+</ol>
+<h2><span class="mw-headline" id="Interpretation">Interpretation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=5" title="Edit section: Interpretation">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="thumb tleft">
+<div class="thumbinner" style="width:302px;"><a href="http://en.wikipedia.org/wiki/File:Self_oraganizing_map_cartography.jpg" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/300px-Self_oraganizing_map_cartography.jpg" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/en/thumb/0/07/Self_oraganizing_map_cartography.jpg/450px-Self_oraganizing_map_cartography.jpg 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/0/07/Self_oraganizing_map_cartography.jpg/600px-Self_oraganizing_map_cartography.jpg 2x" height="193" width="300"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Self_oraganizing_map_cartography.jpg" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+Cartographical representation of a self-organizing map (<a href="http://en.wikipedia.org/wiki/U-Matrix" title="U-Matrix" class="mw-redirect">U-Matrix</a>)
+ based on Wikipedia featured article data (word frequency). Distance is 
+inversely proportional to similarity. The "mountains" are edges between 
+clusters. The red lines are links between articles.</div>
+</div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:222px;"><a href="http://en.wikipedia.org/wiki/File:SOMsPCA.PNG" class="image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/220px-SOMsPCA.PNG" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/b/bb/SOMsPCA.PNG/330px-SOMsPCA.PNG 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/b/bb/SOMsPCA.PNG/440px-SOMsPCA.PNG 2x" height="145" width="220"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:SOMsPCA.PNG" class="internal" title="Enlarge"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/magnify-clip.png" alt="" height="11" width="15"></a></div>
+One-dimensional SOM versus principal component analysis (PCA) for data approximation. SOM is a red <a href="http://en.wikipedia.org/wiki/Broken_line" title="Broken line" class="mw-redirect">broken line</a>
+ with squares, 20 nodes. The first principal component is presented by a
+ blue line. Data points are the small grey circles. For PCA, the <a href="http://en.wikipedia.org/wiki/Fraction_of_variance_unexplained" title="Fraction of variance unexplained">fraction of variance unexplained</a> in this example is 23.23%, for SOM it is 6.86%.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span>[</span>9<span>]</span></a></sup></div>
+</div>
+</div>
+<p>There are two ways to interpret a SOM. Because in the training phase 
+weights of the whole neighborhood are moved in the same direction, 
+similar items tend to excite adjacent neurons. Therefore, SOM forms a 
+semantic map where similar samples are mapped close together and 
+dissimilar ones apart. This may be visualized by a <a href="http://en.wikipedia.org/wiki/U-Matrix" title="U-Matrix" class="mw-redirect">U-Matrix</a> (Euclidean distance between weight vectors of neighboring cells) of the SOM.<sup id="cite_ref-UltschSiemon1990_3-1" class="reference"><a href="#cite_note-UltschSiemon1990-3"><span>[</span>3<span>]</span></a></sup><sup id="cite_ref-Ultsch2003_4-1" class="reference"><a href="#cite_note-Ultsch2003-4"><span>[</span>4<span>]</span></a></sup><sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span>[</span>10<span>]</span></a></sup></p>
+<p>The other way is to think of neuronal weights as pointers to the 
+input space. They form a discrete approximation of the distribution of 
+training samples. More neurons point to regions with high training 
+sample concentration and fewer where the samples are scarce.</p>
+<p><br>
+SOM may be considered a nonlinear generalization of <a href="http://en.wikipedia.org/wiki/Principal_components_analysis" title="Principal components analysis" class="mw-redirect">Principal components analysis</a> (PCA).<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span>[</span>11<span>]</span></a></sup> It has been shown, using both artificial and real geophysical data, that SOM has many advantages<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span>[</span>12<span>]</span></a></sup><sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span>[</span>13<span>]</span></a></sup> over the conventional feature extraction methods such as Empirical Orthogonal Functions (EOF) or PCA.</p>
+<p>Originally, SOM was not formulated as a solution to an optimisation 
+problem. Nevertheless, there have been several attempts to modify the 
+definition of SOM and to formulate an optimisation problem which gives 
+similar results.<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span>[</span>14<span>]</span></a></sup> For example, <a href="http://en.wikipedia.org/wiki/Elastic_map" title="Elastic map">Elastic maps</a> use the mechanical metaphor of elasticity to approximate <a href="http://en.wikipedia.org/wiki/Nonlinear_dimensionality_reduction#Principal_curves_and_manifolds" title="Nonlinear dimensionality reduction">principal manifolds</a>:<sup id="cite_ref-15" class="reference"><a href="#cite_note-15"><span>[</span>15<span>]</span></a></sup> the analogy is an elastic membrane and plate.</p>
+<h2><span class="mw-headline" id="Alternatives">Alternatives</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=6" title="Edit section: Alternatives">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li>The <b><a href="http://en.wikipedia.org/wiki/Generative_topographic_map" title="Generative topographic map">generative topographic map</a></b>
+ (GTM) is a potential alternative to SOMs. In the sense that a GTM 
+explicitly requires a smooth and continuous mapping from the input space
+ to the map space, it is topology preserving. However, in a practical 
+sense, this measure of topological preservation is lacking.<sup id="cite_ref-16" class="reference"><a href="#cite_note-16"><span>[</span>16<span>]</span></a></sup></li>
+</ul>
+<ul>
+<li>The <b><a href="http://en.wikipedia.org/w/index.php?title=Time_adaptive_self-organizing_map&amp;action=edit&amp;redlink=1" class="new" title="Time adaptive self-organizing map (page does not exist)">time adaptive self-organizing map</a></b>
+ (TASOM) network is an extension of the basic SOM. The TASOM employs 
+adaptive learning rates and neighborhood functions. It also includes a 
+scaling parameter to make the network invariant to scaling, translation 
+and rotation of the input space. The TASOM and its variants have been 
+used in several applications including adaptive clustering, multilevel 
+thresholding, input space approximation, and active contour modeling.<sup id="cite_ref-17" class="reference"><a href="#cite_note-17"><span>[</span>17<span>]</span></a></sup>
+ Moreover, a Binary Tree TASOM or BTASOM, resembling a binary natural 
+tree having nodes composed of TASOM networks has been proposed where the
+ number of its levels and the number of its nodes are adaptive with its 
+environment.<sup id="cite_ref-18" class="reference"><a href="#cite_note-18"><span>[</span>18<span>]</span></a></sup></li>
+</ul>
+<ul>
+<li>The <b><a href="http://en.wikipedia.org/wiki/Growing_self-organizing_map" title="Growing self-organizing map">growing self-organizing map</a></b>
+ (GSOM) is a growing variant of the self-organizing map. The GSOM was 
+developed to address the issue of identifying a suitable map size in the
+ SOM. It starts with a minimal number of nodes (usually four) and grows 
+new nodes on the boundary based on a heuristic. By using a value called 
+the <i>spread factor</i>, the data analyst has the ability to control the growth of the GSOM.</li>
+</ul>
+<ul>
+<li>The <b><a href="http://en.wikipedia.org/wiki/Elastic_map" title="Elastic map">elastic maps</a></b> approach<sup id="cite_ref-19" class="reference"><a href="#cite_note-19"><span>[</span>19<span>]</span></a></sup> borrows from the <a href="http://en.wikipedia.org/wiki/Spline_interpolation" title="Spline interpolation">spline interpolation</a> the idea of minimization of the <a href="http://en.wikipedia.org/wiki/Elastic_energy" title="Elastic energy">elastic energy</a>. In learning, it minimizes the sum of quadratic bending and stretching energy with the <a href="http://en.wikipedia.org/wiki/Least_squares" title="Least squares">least squares</a> <a href="http://en.wikipedia.org/wiki/Approximation_error" title="Approximation error">approximation error</a>.</li>
+</ul>
+<ul>
+<li>The conformal approach <sup id="cite_ref-20" class="reference"><a href="#cite_note-20"><span>[</span>20<span>]</span></a></sup><sup id="cite_ref-21" class="reference"><a href="#cite_note-21"><span>[</span>21<span>]</span></a></sup>
+ that uses conformal mapping to interpolate each training sample between
+ grid nodes in a continuous surface. An one-to-one smooth mapping is 
+possible in this approach.</li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=7" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Neural_gas" title="Neural gas">Neural gas</a></li>
+<li>Large Memory Storage and Retrieval (LAMSTAR) neural networks</li>
+<li><a href="http://en.wikipedia.org/wiki/Hybrid_Kohonen_SOM" title="Hybrid Kohonen SOM" class="mw-redirect">Hybrid Kohonen SOM</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=8" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist references-column-count references-column-count-2" style="-moz-column-count: 2; -webkit-column-count: 2; column-count: 2; list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-KohonenMap-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-KohonenMap_1-0">^</a></b></span> <span class="reference-text"><span class="citation web">Kohonen, Teuvo; Honkela, Timo (2007). <a rel="nofollow" class="external text" href="http://www.scholarpedia.org/article/Kohonen_network">"Kohonen Network"</a>. <i>Scholarpedia</i>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Kohonen+Network&amp;rft.aufirst=Teuvo&amp;rft.au=Honkela%2C+Timo&amp;rft.au=Kohonen%2C+Teuvo&amp;rft.aulast=Kohonen&amp;rft.date=2007&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.scholarpedia.org%2Farticle%2FKohonen_network&amp;rft.jtitle=Scholarpedia&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2">^</a></b></span> <span class="reference-text"><span class="citation journal">Kohonen, Teuvo (1982). "Self-Organized Formation of Topologically Correct Feature Maps". <i>Biological Cybernetics</i> <b>43</b> (1): 59–69.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Self-Organized+Formation+of+Topologically+Correct+Feature+Maps&amp;rft.aufirst=Teuvo&amp;rft.au=Kohonen%2C+Teuvo&amp;rft.aulast=Kohonen&amp;rft.date=1982&amp;rft.genre=article&amp;rft.issue=1&amp;rft.jtitle=Biological+Cybernetics&amp;rft.pages=59%E2%80%9369&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=43" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-UltschSiemon1990-3"><span class="mw-cite-backlink">^ <a href="#cite_ref-UltschSiemon1990_3-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-UltschSiemon1990_3-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><span class="citation book">Ultsch, Alfred; Siemon, H. Peter (1990). <a rel="nofollow" class="external text" href="http://www.uni-marburg.de/fb12/datenbionik/pdf/pubs/1990/UltschSiemon90">"Kohonen's Self Organizing Feature Maps for Exploratory Data Analysis"</a>. In Widrow, Bernard; Angeniol, Bernard. <i>Proceedings of the International Neural Network Conference (INNC-90), Paris, France, July 9–13, 1990</i> <b>1</b>. Dordrecht, Netherlands: Kluwer. pp.&nbsp;305–308. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-0-7923-0831-7" title="Special:BookSources/978-0-7923-0831-7">978-0-7923-0831-7</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Proceedings+of+the+International+Neural+Network+Conference+%28INNC-90%29%2C+Paris%2C+France%2C+July+9%E2%80%9313%2C+1990&amp;rft.aufirst=Alfred&amp;rft.aulast=Ultsch&amp;rft.au=Siemon%2C+H.+Peter&amp;rft.au=Ultsch%2C+Alfred&amp;rft.btitle=Kohonen%27s+Self+Organizing+Feature+Maps+for+Exploratory+Data+Analysis&amp;rft.date=1990&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fwww.uni-marburg.de%2Ffb12%2Fdatenbionik%2Fpdf%2Fpubs%2F1990%2FUltschSiemon90&amp;rft.isbn=978-0-7923-0831-7&amp;rft.pages=305%E2%80%93308&amp;rft.place=Dordrecht%2C+Netherlands&amp;rft.pub=Kluwer&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.volume=1" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Ultsch2003-4"><span class="mw-cite-backlink">^ <a href="#cite_ref-Ultsch2003_4-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Ultsch2003_4-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text">Ultsch, Alfred (2003); <i>U*-Matrix: A tool to visualize clusters in high dimensional data</i>, Department of Computer Science, University of Marburg, <a rel="nofollow" class="external text" href="http://www.uni-marburg.de/fb12/datenbionik/pdf/pubs/2003/ultsch03ustar">Technical Report Nr. 36:1-12</a></span></li>
+<li id="cite_note-Ultsch2007-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-Ultsch2007_5-0">^</a></b></span> <span class="reference-text"><span class="citation book">Ultsch, Alfred (2007). "Emergence in Self-Organizing Feature Maps". In Ritter, H.; Haschke, R. <i>Proceedings of the 6th International Workshop on Self-Organizing Maps (WSOM '07)</i>. Bielefeld, Germany: Neuroinformatics Group. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/978-3-00-022473-7" title="Special:BookSources/978-3-00-022473-7">978-3-00-022473-7</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Proceedings+of+the+6th+International+Workshop+on+Self-Organizing+Maps+%28WSOM+%2707%29&amp;rft.aufirst=Alfred&amp;rft.aulast=Ultsch&amp;rft.au=Ultsch%2C+Alfred&amp;rft.btitle=Emergence+in+Self-Organizing+Feature+Maps&amp;rft.date=2007&amp;rft.genre=bookitem&amp;rft.isbn=978-3-00-022473-7&amp;rft.place=Bielefeld%2C+Germany&amp;rft.pub=Neuroinformatics+Group&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Haykin-6"><span class="mw-cite-backlink">^ <a href="#cite_ref-Haykin_6-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Haykin_6-1"><sup><i><b>b</b></i></sup></a></span> <span class="reference-text"><span class="citation book">Haykin, Simon (1999). "9. Self-organizing maps". <i>Neural networks - A comprehensive foundation</i> (2nd ed.). Prentice-Hall. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-13-908385-5" title="Special:BookSources/0-13-908385-5">0-13-908385-5</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Neural+networks+-+A+comprehensive+foundation&amp;rft.aufirst=Simon&amp;rft.au=Haykin%2C+Simon&amp;rft.aulast=Haykin&amp;rft.btitle=9.+Self-organizing+maps&amp;rft.date=1999&amp;rft.edition=2nd&amp;rft.genre=bookitem&amp;rft.isbn=0-13-908385-5&amp;rft.pub=Prentice-Hall&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-SOMIntro-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-SOMIntro_7-0">^</a></b></span> <span class="reference-text"><span class="citation web">Kohonen, Teuvo (2005). <a rel="nofollow" class="external text" href="http://www.cis.hut.fi/projects/somtoolbox/theory/somalgorithm.shtml">"Intro to SOM"</a>. <i>SOM Toolbox</i><span class="reference-accessdate">. Retrieved 2006-06-18</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Intro+to+SOM&amp;rft.aufirst=Teuvo&amp;rft.au=Kohonen%2C+Teuvo&amp;rft.aulast=Kohonen&amp;rft.date=2005&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.cis.hut.fi%2Fprojects%2Fsomtoolbox%2Ftheory%2Fsomalgorithm.shtml&amp;rft.jtitle=SOM+Toolbox&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Scholarpedia-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-Scholarpedia_8-0">^</a></b></span> <span class="reference-text"><span class="citation web">Kohonen, Teuvo; Honkela, Timo (2011). <a rel="nofollow" class="external text" href="http://www.scholarpedia.org/article/Kohonen_network">"Kohonen network"</a>. <i>Scholarpedia</i><span class="reference-accessdate">. Retrieved 2012-09-24</span>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Kohonen+network&amp;rft.aufirst=Teuvo&amp;rft.au=Honkela%2C+Timo&amp;rft.au=Kohonen%2C+Teuvo&amp;rft.aulast=Kohonen&amp;rft.date=2011&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.scholarpedia.org%2Farticle%2FKohonen_network&amp;rft.jtitle=Scholarpedia&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-9">^</a></b></span> <span class="reference-text">Illustration is prepared using free software: Mirkes, Evgeny M.; <a rel="nofollow" class="external text" href="http://www.math.le.ac.uk/people/ag153/homepage/PCA_SOM/PCA_SOM.html"><i>Principal Component Analysis and Self-Organizing Maps: applet</i></a>, University of Leicester, 2011</span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10">^</a></b></span> <span class="reference-text">Saadatdoost,
+ Robab, Alex Tze Hiang Sim, and Jafarkarimi, Hosein. "Application of 
+self organizing map for knowledge discovery based in higher education 
+data." Research and Innovation in Information Systems (ICRIIS), 2011 
+International Conference on. IEEE, 2011.</span></li>
+<li id="cite_note-11"><span class="mw-cite-backlink"><b><a href="#cite_ref-11">^</a></b></span> <span class="reference-text">Yin, Hujun; <a rel="nofollow" class="external text" href="http://pca.narod.ru/contentsgkwz.htm"><i>Learning Nonlinear Principal Manifolds by Self-Organising Maps</i></a>, in Gorban, Alexander N.; Kégl, Balázs; Wunsch, Donald C.; and Zinovyev, Andrei (Eds.); <i>Principal Manifolds for Data Visualization and Dimension Reduction</i>, Lecture Notes in Computer Science and Engineering (LNCSE), vol. 58, Berlin, Germany: Springer, 2007, <a href="http://en.wikipedia.org/wiki/Special:BookSources/9783540737490" class="internal mw-magiclink-isbn">ISBN 978-3-540-73749-0</a></span></li>
+<li id="cite_note-12"><span class="mw-cite-backlink"><b><a href="#cite_ref-12">^</a></b></span> <span class="reference-text">Liu, Yonggang; and Weisberg, Robert H. (2005); <a rel="nofollow" class="external text" href="http://www.agu.org/pubs/crossref/2005/2004JC002786.shtml"><i>Patterns of Ocean Current Variability on the West Florida Shelf Using the Self-Organizing Map</i></a>, Journal of Geophysical Research, 110, C06003, <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1029%2F2004JC002786">10.1029/2004JC002786</a></span></li>
+<li id="cite_note-13"><span class="mw-cite-backlink"><b><a href="#cite_ref-13">^</a></b></span> <span class="reference-text">Liu, Yonggang; Weisberg, Robert H.; and Mooers, Christopher N. K. (2006); <a rel="nofollow" class="external text" href="http://www.agu.org/pubs/crossref/2006/2005JC003117.shtml"><i>Performance Evaluation of the Self-Organizing Map for Feature Extraction</i></a>, Journal of Geophysical Research, 111, C05018, <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1029%2F2005jc003117">10.1029/2005jc003117</a></span></li>
+<li id="cite_note-14"><span class="mw-cite-backlink"><b><a href="#cite_ref-14">^</a></b></span> <span class="reference-text">Heskes, Tom; <a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.55.6572"><i>Energy Functions for Self-Organizing Maps</i></a>, in Oja, Erkki; and Kaski, Samuel (Eds.), <i>Kohonen Maps</i>, Elsevier, 1999</span></li>
+<li id="cite_note-15"><span class="mw-cite-backlink"><b><a href="#cite_ref-15">^</a></b></span> <span class="reference-text">Gorban, Alexander N.; Kégl, Balázs; Wunsch, Donald C.; and Zinovyev, Andrei (Eds.); <a rel="nofollow" class="external text" href="http://pca.narod.ru/contentsgkwz.htm"><i>Principal Manifolds for Data Visualization and Dimension Reduction</i></a>, Lecture Notes in Computer Science and Engineering (LNCSE), vol. 58, Berlin, Germany: Springer, 2007, <a href="http://en.wikipedia.org/wiki/Special:BookSources/9783540737490" class="internal mw-magiclink-isbn">ISBN 978-3-540-73749-0</a></span></li>
+<li id="cite_note-16"><span class="mw-cite-backlink"><b><a href="#cite_ref-16">^</a></b></span> <span class="reference-text"><span class="citation journal">Kaski, Samuel (1997). "Data Exploration Using Self-Organizing Maps". <i>Acta Polytechnica Scandinavica</i>. Mathematics, Computing and Management in Engineering Series No. 82 (Espoo, Finland: Finnish Academy of Technology). <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/952-5148-13-0" title="Special:BookSources/952-5148-13-0">952-5148-13-0</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Data+Exploration+Using+Self-Organizing+Maps&amp;rft.aufirst=Samuel&amp;rft.au=Kaski%2C+Samuel&amp;rft.aulast=Kaski&amp;rft.date=1997&amp;rft.genre=article&amp;rft.isbn=952-5148-13-0&amp;rft.jtitle=Acta+Polytechnica+Scandinavica&amp;rft.place=Espoo%2C+Finland&amp;rft.pub=Finnish+Academy+of+Technology&amp;rft.series=Mathematics%2C+Computing+and+Management+in+Engineering+Series+No.+82&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-17"><span class="mw-cite-backlink"><b><a href="#cite_ref-17">^</a></b></span> <span class="reference-text"><span class="citation journal">Shah-Hosseini, Hamed; Safabakhsh, Reza (April 2003). <a rel="nofollow" class="external text" href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=1187438&amp;tag=1">"TASOM: A New Time Adaptive Self-Organizing Map"</a>. <i>IEEE Transactions on Systems, Man, and Cybernetics—Part B: Cybernetics</i> <b>33</b> (2): 271–282.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=TASOM%3A+A+New+Time+Adaptive+Self-Organizing+Map&amp;rft.aufirst=Hamed&amp;rft.aulast=Shah-Hosseini&amp;rft.au=Safabakhsh%2C+Reza&amp;rft.au=Shah-Hosseini%2C+Hamed&amp;rft.date=2003&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D1187438%26tag%3D1&amp;rft.issue=2&amp;rft.jtitle=IEEE+Transactions+on+Systems%2C+Man%2C+and+Cybernetics%E2%80%94Part+B%3A+Cybernetics&amp;rft.pages=271%E2%80%93282&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=33" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-18"><span class="mw-cite-backlink"><b><a href="#cite_ref-18">^</a></b></span> <span class="reference-text"><span class="citation journal">Shah-Hosseini, Hamed (May 2011). <a rel="nofollow" class="external text" href="http://www.sciencedirect.com/science/article/pii/S0925231211000786">"Binary Tree Time Adaptive Self-Organizing Map"</a>. <i>Neurocomputing</i> <b>74</b> (11): 1823–1839.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Binary+Tree+Time+Adaptive+Self-Organizing+Map&amp;rft.aufirst=Hamed&amp;rft.aulast=Shah-Hosseini&amp;rft.au=Shah-Hosseini%2C+Hamed&amp;rft.date=2011&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS0925231211000786&amp;rft.issue=11&amp;rft.jtitle=Neurocomputing&amp;rft.pages=1823%E2%80%931839&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=74" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-19"><span class="mw-cite-backlink"><b><a href="#cite_ref-19">^</a></b></span> <span class="reference-text">A. N. Gorban, A. Zinovyev, <a rel="nofollow" class="external text" href="http://arxiv.org/abs/1001.1122">Principal manifolds and graphs in practice: from molecular biology to dynamical systems</a>, <a href="http://en.wikipedia.org/wiki/International_Journal_of_Neural_Systems" title="International Journal of Neural Systems">International Journal of Neural Systems</a>, Vol. 20, No. 3 (2010) 219–232.</span></li>
+<li id="cite_note-20"><span class="mw-cite-backlink"><b><a href="#cite_ref-20">^</a></b></span> <span class="reference-text"><span class="citation journal">Liou, C.-Y.; Kuo, Y.-T. (2005). <a rel="nofollow" class="external text" href="http://link.springer.com/article/10.1007%2Fs00371-005-0290-6">"Conformal Self-organizing Map for a Genus Zero Manifold"</a>. <i>The Visual Computer</i> <b>21</b> (5): 340–353. <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1007%2Fs00371-005-0290-6">10.1007/s00371-005-0290-6</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Conformal+Self-organizing+Map+for+a+Genus+Zero+Manifold&amp;rft.aufirst=C.-Y.&amp;rft.au=Kuo%2C+Y.-T.&amp;rft.aulast=Liou&amp;rft.au=Liou%2C+C.-Y.&amp;rft.date=2005&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Flink.springer.com%2Farticle%2F10.1007%252Fs00371-005-0290-6&amp;rft_id=info%3Adoi%2F10.1007%2Fs00371-005-0290-6&amp;rft.issue=5&amp;rft.jtitle=The+Visual+Computer&amp;rft.pages=340%E2%80%93353&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=21" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+<li id="cite_note-21"><span class="mw-cite-backlink"><b><a href="#cite_ref-21">^</a></b></span> <span class="reference-text"><span class="citation journal">Liou, C.-Y.; Tai, W.-P. (2000). <a rel="nofollow" class="external text" href="http://www.sciencedirect.com/science/article/pii/S0004370299000934">"Conformality in the self-organization network"</a>. <i>Artificial Intelligence</i> <b>116</b>: 265–286. <a href="http://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="http://dx.doi.org/10.1016%2FS0004-3702%2899%2900093-4">10.1016/S0004-3702(99)00093-4</a>.</span><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ASelf-organizing+map&amp;rft.atitle=Conformality+in+the+self-organization+network&amp;rft.aufirst=C.-Y.&amp;rft.aulast=Liou&amp;rft.au=Liou%2C+C.-Y.&amp;rft.au=Tai%2C+W.-P.&amp;rft.date=2000&amp;rft.genre=article&amp;rft_id=http%3A%2F%2Fwww.sciencedirect.com%2Fscience%2Farticle%2Fpii%2FS0004370299000934&amp;rft_id=info%3Adoi%2F10.1016%2FS0004-3702%2899%2900093-4&amp;rft.jtitle=Artificial+Intelligence&amp;rft.pages=265%E2%80%93286&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=116" class="Z3988"><span style="display:none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<table class="metadata mbox-small plainlinks" style="border:1px solid #aaa; background-color:#f9f9f9;">
+<tbody><tr>
+<td class="mbox-image"><img alt="" src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/30px-Commons-logo.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/45px-Commons-logo.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/4/4a/Commons-logo.svg/59px-Commons-logo.svg.png 2x" height="40" width="30"></td>
+<td class="mbox-text plainlist" style="">Wikimedia Commons has media related to <i><b><a href="http://commons.wikimedia.org/wiki/Category:Self-organizing_map" class="extiw" title="commons:Category:Self-organizing map">Self-organizing map</a></b></i>.</td>
+</tr>
+</tbody></table>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit&amp;section=9" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://jsalatas.ictpro.gr/weka/">Self-organizing maps for WEKA</a>: Implementation of a self-organizing maps in Java, for the WEKA Machine Learning Workbench.</li>
+<li><a rel="nofollow" class="external text" href="http://ai4r.org/">Self-organizing maps for Ruby</a>: Implementation of self-organizing maps in Ruby, for the AI4R project.</li>
+<li><a rel="nofollow" class="external text" href="http://github.com/LucidTechnics/som">Self-organizing map for JavaScript</a>: An open-source implementation of a self-organizing map in JavaScript for node.js from Lucid Technics, LLC.</li>
+<li><a rel="nofollow" class="external text" href="http://hackage.haskell.org/package/som">Self-organizing map for Haskell</a>: An open-source implementation of a self-organising map in Haskell.</li>
+<li><a rel="nofollow" class="external text" href="http://www.spice.ci.ritsumei.ac.jp/%7Ethangc/programs/">Spice-SOM</a>: A free GUI application of self-organizing map</li>
+<li><a rel="nofollow" class="external text" href="http://mathcs.emory.edu/%7Ekthayer/ifcsoft/">IFCSoft</a>: An open-source Java platform for generating self-organizing maps</li>
+<li><a rel="nofollow" class="external text" href="http://www.demogng.de/">DemoGNG</a>: Java applet implementing self-organizing maps and other network models (neural gas, growing neural gas, growing grid etc.)</li>
+<li><a rel="nofollow" class="external text" href="http://cran.r-project.org/web/packages/kohonen/">kohonen</a> An open source Supervised and unsupervised self-organising maps package for R.</li>
+<li><a rel="nofollow" class="external text" href="http://supfam.org/SUPERFAMILY/dcGO/supraHex.html">supraHex</a> A supra-hexagonal map for analysing high-dimensional omics data.</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+CPU time usage: 0.832 seconds
+Real time usage: 0.983 seconds
+Preprocessor visited node count: 2672/1000000
+Preprocessor generated node count: 12065/1500000
+Post‐expand include size: 43853/2048000 bytes
+Template argument size: 9429/2048000 bytes
+Highest expansion depth: 21/40
+Expensive parser function count: 7/500
+Lua time usage: 0.055s
+Lua memory usage: 2.05 MB
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:76996-0!0!0!!en!4!* and timestamp 20130928025028 -->
+<noscript><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/index.png" alt="" title="" style="border: none; position: absolute;" height="1" width="1"></noscript></div>								<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;oldid=571895297">http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;oldid=571895297</a>"				</div>
+												<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Neural_networks" title="Category:Neural networks">Neural networks</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Dimension_reduction" title="Category:Dimension reduction">Dimension reduction</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Data_clustering_algorithms" title="Category:Data clustering algorithms">Data clustering algorithms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_needing_cleanup_from_June_2011" title="Category:Articles needing cleanup from June 2011">Articles needing cleanup from June 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_needing_cleanup" title="Category:All articles needing cleanup">All articles needing cleanup</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Cleanup_tagged_articles_without_a_reason_field_from_June_2011" title="Category:Cleanup tagged articles without a reason field from June 2011">Cleanup tagged articles without a reason field from June 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Wikipedia_pages_needing_cleanup_from_June_2011" title="Category:Wikipedia pages needing cleanup from June 2011">Wikipedia pages needing cleanup from June 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_September_2012" title="Category:Articles with unsourced statements from September 2012">Articles with unsourced statements from September 2012</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_needing_additional_references_from_February_2010" title="Category:Articles needing additional references from February 2010">Articles needing additional references from February 2010</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_needing_additional_references" title="Category:All articles needing additional references">All articles needing additional references</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Commons_category_template_with_no_category_set" title="Category:Commons category template with no category set">Commons category template with no category set</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Commons_category_with_page_title_same_as_on_Wikidata" title="Category:Commons category with page title same as on Wikidata">Commons category with page title same as on Wikidata</a></li></ul></div></div>												<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+			<div id="mw-head">
+				<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+	<h3 id="p-personal-label">Personal tools</h3>
+	<ul>
+<li id="pt-createaccount"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Self-organizing+map&amp;type=signup">Create account</a></li><li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Self-organizing+map" title="You're encouraged to log in; however, it's not mandatory. [o]" accesskey="o">Log in</a></li>	</ul>
+</div>
+				<div id="left-navigation">
+					<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+	<h3 id="p-namespaces-label">Namespaces</h3>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Self-organizing_map" title="View the content page [c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Self-organizing_map" title="Discussion about the content page [t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+	<h3 id="mw-vector-current-variant">
+		</h3>
+	<h3 id="p-variants-label"><span>Variants</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+				</div>
+				<div id="right-navigation">
+					<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+	<h3 id="p-views-label">Views</h3>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Self-organizing_map">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=edit" title="You can edit this page. 
+Please review your changes before saving. [e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=history" title="Past versions of this page [h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+<div id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+	<h3 id="p-cactions-label"><span>Actions</span><a href="#"></a></h3>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div id="p-search" role="search">
+	<h3><label for="searchInput">Search</label></h3>
+	<form action="/w/index.php" id="searchform">
+				<div id="simpleSearch">
+						<input name="search" placeholder="Search" title="Search Wikipedia [f]" accesskey="f" id="searchInput">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/search-ltr.png" alt="Search" height="13" width="12"></button>								<input name="title" value="Special:Search" type="hidden">
+		</div>
+	</form>
+</div>
+				</div>
+			</div>
+			<div id="mw-panel">
+					<div id="p-logo" role="banner"><a style="background-image: url(//upload.wikimedia.org/wikipedia/en/b/bc/Wiki.png);" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+	<h3 id="p-navigation-label">Navigation</h3>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+	<h3 id="p-interaction-label">Interaction</h3>
+	<div class="body">
+		<ul>
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contactpage"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact page</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+	<h3 id="p-tb-label">Toolbox</h3>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Self-organizing_map" title="List of all English Wikipedia pages containing links to this page [j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Self-organizing_map" title="Recent changes in pages linked from this page [k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;oldid=571895297" title="Permanent link to this revision of the page">Permanent link</a></li>
+			<li id="t-info"><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;action=info">Page information</a></li>
+			<li id="t-wikibase"><a href="http://www.wikidata.org/wiki/Q1136838" title="Link to connected data repository item">Data item</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Self-organizing_map&amp;id=571895297" title="Information on how to cite this page">Cite this page</a></li>		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+	<h3 id="p-coll-print_export-label">Print/export</h3>
+	<div class="body">
+		<ul>
+			<li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Self-organizing+map">Create a book</a></li>
+			<li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Self-organizing+map&amp;oldid=571895297&amp;writer=rl">Download as PDF</a></li>
+			<li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Self-organizing_map&amp;printable=yes" title="Printable version of this page [p]" accesskey="p">Printable version</a></li>
+		</ul>
+	</div>
+</div>
+<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label">
+	<h3 id="p-lang-label">Languages</h3>
+	<div class="body">
+		<ul>
+			<li class="interwiki-ar"><a href="http://ar.wikipedia.org/wiki/%D8%B4%D8%A8%D9%83%D8%A7%D8%AA_%D9%83%D9%88%D9%87%D9%88%D9%86%D9%8A%D9%86_%D8%B0%D8%A7%D8%AA%D9%8A%D8%A9_%D8%A7%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%85" title="شبكات كوهونين ذاتية التنظيم" hreflang="ar" lang="ar">العربية</a></li>
+			<li class="interwiki-de"><a href="http://de.wikipedia.org/wiki/Selbstorganisierende_Karte" title="Selbstorganisierende Karte" hreflang="de" lang="de">Deutsch</a></li>
+			<li class="interwiki-es"><a href="http://es.wikipedia.org/wiki/Mapa_autoorganizado" title="Mapa autoorganizado" hreflang="es" lang="es">Español</a></li>
+			<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Carte_auto_adaptative" title="Carte auto adaptative" hreflang="fr" lang="fr">Français</a></li>
+			<li class="interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EC%9E%90%EA%B8%B0%EC%A1%B0%EC%A7%81%ED%99%94%EC%A7%80%EB%8F%84" title="자기조직화지도" hreflang="ko" lang="ko">한국어</a></li>
+			<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Self-Organizing_Map" title="Self-Organizing Map" hreflang="it" lang="it">Italiano</a></li>
+			<li class="interwiki-he"><a href="http://he.wikipedia.org/wiki/%D7%A8%D7%A9%D7%AA_%D7%A7%D7%95%D7%94%D7%95%D7%A0%D7%9F" title="רשת קוהונן" hreflang="he" lang="he">עברית</a></li>
+			<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E8%87%AA%E5%B7%B1%E7%B5%84%E7%B9%94%E5%8C%96%E5%86%99%E5%83%8F" title="自己組織化写像" hreflang="ja" lang="ja">日本語</a></li>
+			<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Sie%C4%87_Kohonena" title="Sieć Kohonena" hreflang="pl" lang="pl">Polski</a></li>
+			<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BC%D0%BE%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D1%83%D1%8E%D1%89%D0%B0%D1%8F%D1%81%D1%8F_%D0%BA%D0%B0%D1%80%D1%82%D0%B0_%D0%9A%D0%BE%D1%85%D0%BE%D0%BD%D0%B5%D0%BD%D0%B0" title="Самоорганизующаяся карта Кохонена" hreflang="ru" lang="ru">Русский</a></li>
+			<li class="interwiki-sl"><a href="http://sl.wikipedia.org/wiki/Samoorganizirajo%C4%8De_karte" title="Samoorganizirajoče karte" hreflang="sl" lang="sl">Slovenščina</a></li>
+			<li class="interwiki-fi"><a href="http://fi.wikipedia.org/wiki/Itseorganisoituva_kartta" title="Itseorganisoituva kartta" hreflang="fi" lang="fi">Suomi</a></li>
+			<li class="interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BC%D0%BE%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D1%96%D0%B7%D0%B0%D1%86%D1%96%D0%B9%D0%BD%D0%B0_%D0%9A%D0%B0%D1%80%D1%82%D0%B0_%D0%9A%D0%BE%D1%85%D0%BE%D0%BD%D0%B5%D0%BD%D0%B0" title="Самоорганізаційна Карта Кохонена" hreflang="uk" lang="uk">Українська</a></li>
+			<li class="interwiki-vi"><a href="http://vi.wikipedia.org/wiki/B%E1%BA%A3n_%C4%91%E1%BB%93_t%E1%BB%B1_t%E1%BB%95_ch%E1%BB%A9c" title="Bản đồ tự tổ chức" hreflang="vi" lang="vi">Tiếng Việt</a></li>
+			<li class="uls-p-lang-dummy"><a href="#"></a></li>
+			<li class="wbc-editpage"><a href="http://www.wikidata.org/wiki/Q1136838#sitelinks-wikipedia" title="Edit interlanguage links">Edit links</a></li>
+		</ul>
+	</div>
+</div>
+			</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 7 September 2013 at 09:50.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="http://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="http://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy.</a> <br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a class="external" href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.m.wikipedia.org/wiki/Self-organizing_map" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/wikimedia-button.png" alt="Wikimedia Foundation" height="31" width="88"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+					</li>
+				</ul>
+						<div style="clear:both"></div>
+		</div>
+		<script>/*<![CDATA[*/window.jQuery && jQuery.ready();/*]]>*/</script><script>if(window.mw){
+mw.loader.state({"site":"loading","user":"ready","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mobile.desktop","mediawiki.action.view.postEdit","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.cite","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.DRN-wizard","ext.gadget.charinsert","mw.MwEmbedSupport.style","ext.vector.collapsibleNav","ext.articleFeedbackv5.startup","schema.HttpsSupport","ext.coreEvents.httpsSupport","ext.navigationTiming","schema.UniversalLanguageSelector","ext.uls.eventlogger","mw.PopUpMediaTransform"],null,true);
+}</script>
+<script src="Self-organizing%20map%20-%20Wikipedia,%20the%20free%20encyclopedia_files/load.js"></script>
+<!-- Served by mw1176 in 0.161 secs. -->
+	
+
+</body></html>

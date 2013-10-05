@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+ <meta name="Author" content="Mat Buckland">
+<meta name="Keywords" content="artificial intelligence neural network tutorial introduction ai">
+<meta name="Description" content="neural network tutorial in plain english">
+  
+<title>SOM tutorial part 1</title>
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <script type="text/javascript" src="SOM%20tutorial%20part%201_2_files/Dispatcher.html"></script>
+
+ <style fprolloverstyle="">A:hover {color: red; font-weight: bold}
+ </style>
+
+ </head>
+
+ <body alink="#FFFFFF" bgcolor="#000066" text="#C0C0C0">
+
+<p class="MsoNormal" align="center">
+<a href="http://www.ai-junkie.com/">
+<img src="SOM%20tutorial%20part%201_2_files/logo.jpg" border="0" height="78" width="469"></a></p>
+<hr>
+
+  <p class="MsoNormal" align="left"><b>
+  <font color="#FFFFCC" face="Arial" size="4">Learning Algorithm Overview</font></b></p>
+
+  <p class="MsoNormal" align="left"><font face="Arial">A SOM does not need a 
+  target output to be specified unlike many other types of network. Instead, 
+  where the node weights match the input vector, that area of the lattice is 
+  selectively optimized to more closely resemble the data for the class the 
+  input vector is a member of. From an initial distribution of random weights, 
+  and over many iterations, the SOM eventually settles into a map of stable 
+  zones. Each zone is effectively a feature classifier, so you can think of the 
+  graphical output as a type of feature map of the input space. If you take 
+  another look at the trained network shown in&nbsp; figure 1, the blocks of similar 
+  colour represent&nbsp; the individual zones. Any new, previously unseen input vectors 
+  presented to the network will stimulate nodes in the zone with similar 
+  weight vectors.</font></p>
+
+  <p class="MsoNormal" align="left"><font face="Arial">Training occurs in 
+  several steps and over many iterations:</font></p>
+
+  <ol>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">
+  Each node's weights are initialized.</font></p>
+
+    </li>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">
+  A vector is chosen at random from the set of training data and presented to 
+  the lattice.</font></p>
+
+    </li>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">Every node is examined to calculate which one's weights are most like the 
+  input vector. The winning node is commonly known as the Best Matching Unit (BMU).</font></p>
+
+    </li>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">The 
+  radius of the neighbourhood of the BMU is now calculated. This is a value that 
+  starts large, typically set to the 'radius' of the lattice,&nbsp; but 
+  diminishes each time-step.&nbsp;Any nodes found within this radius are deemed to be inside 
+  the BMU's neighbourhood.</font></p>
+
+    </li>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">Each 
+  neighbouring node's (the nodes found in step 4) weights&nbsp;are adjusted to 
+  make them more like the input vector. The closer a node is to the BMU, the 
+  more its weights get altered.</font></p>
+
+    </li>
+    <li>
+
+  <p class="MsoNormal" style="margin-top: 12; margin-bottom: 12" align="left"><font face="Arial">
+  Repeat step 2 for N iterations.</font></p>
+
+    </li>
+</ol>
+
+  <p class="MsoNormal" align="left">&nbsp;</p>
+
+  <p class="MsoNormal" align="left"><b><font color="#FFFFCC" face="Arial" size="4">
+  The Learning Algorithm In Detail</font></b></p>
+
+  <p class="MsoNormal" align="left"><font face="Arial">Now let's take a 
+look at 
+  each step in detail. I'll supplement my descriptions with extracts 
+from the 
+  source code where appropriate. Hopefully, for those of you who can 
+program,&nbsp;the code will help reinforce your understanding of the 
+principles involved.</font></p>
+
+<p class="MsoNormal" align="left"><b><font color="#FFFFCC" face="Arial">Initializing 
+The Weights</font></b></p>
+<p class="MsoNormal" align="left"><font face="Arial">Prior to training, each 
+node's weights must be initialized. Typically these will be set to small 
+standardized random values. The weights in the SOM from the accompanying code 
+project are initialized so that 
+0 &lt; w &lt; 1.&nbsp; Nodes are defined in the source code by the class </font>
+<font color="#FFFFFF" face="Courier New">CNode</font><font face="Arial">. Here 
+are the relevant parts of that class:</font></p>
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber1" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%"><font color="#FFFFFF" face="Courier New" size="2">
+      <p style="margin-top: 0; margin-bottom: 0" align="left">class CNode</p>
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">{</font></p>
+      <font color="#FFFFFF" face="Courier New" size="2">
+      <p style="margin-top: 0; margin-bottom: 0" align="left">private:</p>
+      </font><p style="margin-top: 0; margin-bottom: 0" align="left"><font color="#FFFFFF" face="Courier New" size="2"></font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //this node's 
+      weights</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; vector&lt;double&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_dWeights;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //its position 
+      within the lattice</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; double&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_dX,</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_dY;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //the edges of 
+      this node's cell. Each node, when draw to the client </font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //area, is 
+      represented as a rectangular cell. The colour of the cell </font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //is set to the 
+      RGB value its weights represent.</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_iLeft;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_iTop;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_iRight;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_iBottom;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <font color="#FFFFFF" face="Courier New" size="2">
+      <p style="margin-top: 0; margin-bottom: 0" align="left">public:</p>
+      </font><p style="margin-top: 0; margin-bottom: 0" align="left"><font color="#FFFFFF" face="Courier New" size="2"></font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; CNode(int lft, 
+      int rgt, int top, int bot, int NumWeights):m_iLeft(lft),</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      m_iRight(rgt),</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      m_iBottom(bot),</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      m_iTop(top)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //initialize the weights to small random variables</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; for 
+      (int w=0; w&lt;NumWeights; ++w)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_dWeights.push_back(RandFloat());</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //calculate the node's center</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; m_dX 
+      = m_iLeft + (double)(m_iRight - m_iLeft)/2;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; m_dY 
+      = m_iTop&nbsp; + (double)(m_iBottom - m_iTop)/2;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Courier New">&nbsp; 
+      ...</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">};</font></p></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p class="MsoNormal" align="left"><font face="Arial">You can see that the 
+weights are initialized automatically by the constructor when a </font>
+<font color="#FFFFFF" face="Courier New">CNode</font><font face="Arial"> object 
+is instantiated. The member variables </font>
+<font color="#FFFFFF" face="Courier New">m_iLeft</font><font face="Arial">,
+</font><font color="#FFFFFF" face="Courier New">m_iRight</font><font face="Arial">,
+</font><font color="#FFFFFF" face="Courier New">m_iTop</font><font face="Arial"> 
+and </font><font face="Courier New">m<font color="#FFFFFF">_iBottom</font></font><font face="Arial"> 
+are only used to render the network to the display area - each node is 
+represented by a rectangular cell described by these values, as shown previously 
+in Figure 3.</font></p>
+<p class="MsoNormal" align="left">&nbsp;</p>
+<p class="MsoNormal" align="left"><b><font color="#FFFFCC" face="Arial">Calculating the Best 
+Matching Unit</font></b></p>
+<p class="MsoNormal" align="left"><font face="Arial">To determine the best 
+matching unit, one method is to iterate through all the nodes and calculate the Euclidean distance 
+between each node's weight vector and the current input vector. The node with a 
+weight vector closest to the input vector is tagged as the BMU. </font></p>
+<p class="MsoNormal" align="left"><font face="Arial">The Euclidean 
+distance is given as:</font></p>
+<p class="MsoNormal" align="center">
+<img src="SOM%20tutorial%20part%201_2_files/equation1.gif" border="0" height="56" width="162"></p>
+<p class="MsoNormal" align="center"><font size="2">Equation 1</font></p>
+<p class="MsoNormal" align="left"><font face="Arial">where <b><i>
+<font color="#FFFFFF">V</font></i></b> is the current input vector and<i><font color="#FFFFFF"><b> 
+W</b></font></i> is the node's weight vector. In code this equation 
+translates to:</font></p>
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber2" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%"><font color="#FFFFFF" face="Courier New" size="2">
+      </font><p style="margin-top: 0; margin-bottom: 0" align="left"><font color="#FFFFFF" face="Courier New" size="2">double CNode::GetDistance(const 
+      vector&lt;double&gt; &amp;InputVector)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">{</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; double distance = 
+      0;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; for (int i=0; i&lt;m_dWeights.size(); 
+      ++i)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      distance 
+      += (InputVector[i] - m_dWeights[i]) * (InputVector[i] - m_dWeights[i]);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; return 
+      sqrt(distance);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">}</font></p>
+      </td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p><font face="Arial">As an example, to calculate the distance between the 
+vector for the colour red (1, 0, 0) with an arbitrary weight vector (0.1, 0.4, 
+0.5)</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Arial">
+distance = sqrt( (1 - 0.1)<sup>2 </sup>+ (0 - 0.4)<sup>2</sup>+ (0 - 0.5)<sup>2</sup> 
+)</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= sqrt( (0.9)<sup>2 </sup>+ (-0.4)<sup>2</sup>+ (-0.5)<sup>2</sup> )</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= sqrt( 0.81<sup> </sup>+ 0.16+ 0.25 )</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Arial">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+= sqrt(1.22)</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">
+<font color="#FFFFFF" face="Arial">distance&nbsp; = 1.106</font></p>
+<p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<hr>
+
+ <p style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p style="margin-top: 0; margin-bottom: 0" align="center"><b><font color="#FFFFFF" face="Arial">
+<a href="http://www.ai-junkie.com/ann/som/som1.html">1</a>&nbsp;&nbsp; 2&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som3.html">3</a>&nbsp;&nbsp;
+<a href="http://www.ai-junkie.com/ann/som/som4.html">4</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som5.html">5</a>&nbsp;&nbsp;
+<a href="http://www.ai-junkie.com/index.html">Home</a></font></b></p>
+
+ 
+ 
+</body></html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+ <meta name="Author" content="Mat Buckland">
+<meta name="Keywords" content="artificial intelligence neural network tutorial introduction ai">
+<meta name="Description" content="neural network tutorial in plain english">
+  
+<title>SOM tutorial part one</title>
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <script type="text/javascript" src="SOM%20tutorial%20part%20one_5_files/Dispatcher.html"></script>
+
+ <style fprolloverstyle="">A:hover {color: red; font-weight: bold}
+ </style>
+
+ </head>
+
+ <body alink="#FFFFFF" bgcolor="#000066" text="#C0C0C0">
+
+<p class="MsoNormal" align="center">
+<a href="http://www.ai-junkie.com/">
+<img src="SOM%20tutorial%20part%20one_5_files/logo.jpg" border="0" height="78" width="469"></a></p>
+<hr>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left"><b>
+<font color="#FFFFCC" face="Arial" size="4">Applications of SOMs</font></b></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">SOMs are commonly used as visualization aids. They can make 
+it easy for us humans to see relationships between vast amounts of data. Let me 
+show you an example</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left"><b>
+<font color="#FFFFCC" face="Arial">World Poverty Map</font></b></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">A SOM has been used to classify statistical data describing 
+various quality-of-life factors such as state of health, nutrition, educational 
+services etc. . Countries with similar quality-of-life factors end up clustered 
+together. The countries with better quality-of-life are situated toward the 
+upper left and the most poverty stricken countries are toward the lower right. 
+The hexagonal grid is a unified distance matrix, commonly known as a u-matrix. 
+Each hexagon represents a node in the SOM.</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%20one_5_files/povertymap.jpg" border="0" height="294" width="500"></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">This colour information can then be plotted onto a map of the 
+world like so:</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%20one_5_files/worldpovertymap.jpg" border="0" height="277" width="500"></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">This makes it very easy for us to understand the poverty 
+data.</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<b><font color="#FFFFCC" face="Arial">Other Uses</font></b></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">SOMs have been applied in many areas. Here are just some of 
+them.</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Bibliographic classification (<a target="_blank" href="http://www.edpsciences.org/articles/aas/pdf/1998/10/ds1464.pdf">click 
+for more info</a>)</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Image browsing systems (<a target="_blank" href="http://www.cis.hut.fi/picsom/">click</a> 
+, <a target="_blank" href="http://www.hku.hk/cogsci/prog/students/2000/milo/">
+click me too!</a>)</font></p>
+
+ <p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+ <font face="Arial">Medical Diagnosis</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Interpreting seismic activity</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Speech recognition (this is what Kohonen used them for 
+initially)</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Data compression</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Separating sound sources (<a target="_blank" href="http://www.cis.hut.fi/projects/ica/cocktail/cocktail_en.cgi">click</a>)</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Environmental modelling (<a target="_blank" href="http://www.ibrae.ac.ru/%7Emkanev/eng/Intas99/GeoSOM/geosom_example.html">click</a>)</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Vampire classification! (<a target="_blank" href="http://www.hut.fi/%7Ejslindst/vtes/">click</a>)</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left"><b>
+<font color="#FFFFCC" face="Arial" size="4">Conclusion</font></b></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">I hope you've enjoyed reading this tutorial and, more 
+importantly, I hope I've interested you enough for you to experiment with your 
+own SOMs.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Have fun!</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font color="#FF0000" face="Arial" size="4">Update</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">I found the following article the other day. It's a great 
+read and may give you some ideas.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">
+<a href="http://www.generation5.org/content/2004/aiSomPic.asp">
+http://www.generation5.org/content/2004/aiSomPic.asp</a></font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font color="#FF0000" face="Arial" size="4">Update2</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial">Robert DeLisle (KIrkD) has kindly made his code available for 
+the generation and training of self organising maps. The code is well designed 
+and commented and comes complete with step-by-step "how to" instructions and 
+UML-like diagrams. You can find the files, documentation and a pre-compiled 
+executable <a href="http://www.ai-junkie.com/files/KirkD_SOM.zip">here</a> (to see the executable 
+run make sure you put the data file <a href="http://www.ai-junkie.com/files/Random4.csv">
+"Random4.csv"</a>&nbsp; into the <a href="file:///c:/temp">c:\temp</a> folder)</font></p><p style="margin-top:0; margin-bottom:0" align="left">
+&nbsp;</p><p style="margin-top:0; margin-bottom:0" align="left">
+<font face="Arial">If you have problems with the code or would like to ask Kirk 
+questions please contact him here: REMOVErkdelisleREMOVE@earthlink.net.</font></p><p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<hr>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+ <p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center"><b><font color="#FFFFFF" face="Arial">
+ <a href="http://www.ai-junkie.com/ann/som/som1.html">1</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som2.html">2</a>&nbsp;&nbsp;
+ <a href="http://www.ai-junkie.com/ann/som/som3.html">3</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som4.html">4</a>&nbsp;&nbsp; 5&nbsp;&nbsp;
+ <a href="http://www.ai-junkie.com/index.html">Home</a></font></b></p>
+
+ 
+ 
+</body></html>

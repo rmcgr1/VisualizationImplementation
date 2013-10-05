@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+ <meta name="Author" content="Mat Buckland">
+<meta name="Keywords" content="artificial intelligence neural network tutorial introduction ai">
+<meta name="Description" content="neural network tutorial in plain english">  
+<title>SOM tutorial part 1</title>
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <script type="text/javascript" src="SOM%20tutorial%20part%201_3_files/Dispatcher.html"></script>
+
+ <style fprolloverstyle="">A:hover {color: red; font-weight: bold}
+ </style>
+
+ </head>
+
+ <body alink="#FFFFFF" bgcolor="#000066" text="#C0C0C0">
+
+<p class="MsoNormal" align="center">
+<a href="http://www.ai-junkie.com/">
+<img src="SOM%20tutorial%20part%201_3_files/logo.jpg" border="0" height="78" width="469"></a></p>
+<hr>
+
+<p class="MsoNormal" align="left"><b><font color="#FFFFCC" face="Arial">Determining the 
+Best Matching Unit's Local 
+Neighbourhood</font></b></p>
+
+<p class="MsoNormal" align="left"><font face="Arial">This is where things start 
+to get more interesting! Each iteration, after the BMU has been determined, the 
+next step is to calculate which of the other nodes are within the BMU's 
+neighbourhood. All these nodes will have their weight vectors altered in the 
+next step. So how do we do that? Well it's not too difficult... first you 
+calculate what the radius of the neighbourhood should be and then it's a simple 
+application of good ol' Pythagoras to determine if each node is within the 
+radial distance or not. Figure 4 shows an example of the size of a typical 
+neighbourhood close to the commencement of training.</font></p>
+
+<p class="MsoNormal" align="center">
+<img src="SOM%20tutorial%20part%201_3_files/Figure4.jpg" border="0" height="300" width="300"></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+Figure 4</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">The 
+BMU's neighbourhood.</p>
+
+<p class="MsoNormal" align="left"><font face="Arial">You can see that the 
+neighbourhood shown above is centered around the BMU (coloured yellow) and encompasses most 
+of the other nodes. The green arrow shows the radius</font></p>
+
+<p class="MsoNormal" align="left"><font face="Arial">A unique feature of the 
+Kohonen learning 
+algorithm is that the area of the neighbourhood shrinks over time. This is 
+accomplished by making the radius of the neighbourhood shrink over time (that 
+was hard to work out eh? ;0) ). To do this I use the exponential decay 
+function:</font></p>
+
+<p class="MsoNormal" align="center">
+<img src="SOM%20tutorial%20part%201_3_files/equation2.gif" border="0" height="45" width="248"></p>
+
+<p class="MsoNormal" align="center">equation 2</p>
+
+<p class="MsoNormal" align="left"><font face="Arial">where the Greek letter 
+sigma, <font color="#FFFFFF">&#963;<sub><font size="2">0</font></sub></font>, denotes the width of the lattice at time<i> </i>t<font size="2"><sub> 
+0 </sub></font>and the Greek letter lambda, <font color="#FFFFFF">&#955;</font>, denotes a time constant.&nbsp;
+</font>
+<i><font color="#FFFFFF" face="Times New Roman">t</font></i><font face="Arial"> 
+is the current time-step (iteration of the loop). In 
+my code I name the value <font color="#FFFFFF">&#963;,&nbsp; </font></font>
+<font color="#FFFFFF" face="Courier New" size="2">m_dMapRadius</font><font face="Arial">, 
+and it is equal to <font color="#FFFFFF">&#963;<sub><font size="2">0</font></sub></font> 
+at the commencement of training. This is how I calculate <font color="#FFFFFF">&#963;<sub><font size="2">0.</font></sub></font></font></p>
+<font color="#FFFFFF" face="Courier New" size="2">
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber1" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%">
+      <p align="left"><font color="#FFFFFF" face="Courier New" size="2">
+      m_dMapRadius = max(constWindowWidth, constWindowHeight)/2;</font></p></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+</font>
+
+<p class="MsoNormal" align="left"><font face="Arial">The value of 
+<font color="#FFFFFF">&#955;</font> is dependent 
+on <font color="#FFFFFF">&#963;</font> and the number of iterations chosen for 
+the algorithm to run. I have named 
+<font color="#FFFFFF">&#955;</font>,
+</font><font color="#FFFFFF" face="Courier New" size="2">m_dTimeConstant</font><font face="Arial"> 
+and it is calculated by the line:</font></p>
+<font color="#FFFFFF" face="Courier New" size="2">
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber2" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%">
+      <p align="left"><font color="#FFFFFF" face="Courier New" size="2">
+      m_dTimeConstant = m_iNumIterations/log(m_dMapRadius);</font></p></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+</font>
+
+<p class="MsoNormal" align="left">
+<font color="#FFFFFF" face="Courier New" size="2">m_iNumIterations</font><font face="Arial"> 
+is the number of iterations the learning algorithm will perform. This value is 
+set by the user in 'constants.h'. 
+ 
+</font></p>
+
+<p class="MsoNormal" align="left"><font face="Arial">We can use </font>
+<font color="#FFFFFF" face="Courier New" size="2">m_dTimeConstant</font><font face="Arial"> 
+and </font>
+<font color="#FFFFFF" face="Courier New" size="2">m_dMapRadius</font><font face="Arial"> 
+to 
+calculate the neighbourhood radius for each iteration of the algorithm using 
+Equation 2. The line that does this in the source code can be found inside
+</font><font color="#FFFFFF" face="Courier New" size="2">Csom::Epoch</font><font face="Arial"> and it looks like this:</font></p>
+<font color="#FFFFFF" face="Courier New" size="2">
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber3" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%">
+      <p align="left"><font color="#FFFFFF" face="Courier New" size="2">
+      m_dNeighbourhoodRadius = m_dMapRadius * exp(-(double)m_iIterationCount/m_dTimeConstant);</font></p></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+</font><font face="Arial">
+<p>Figure 5 shows how the neighbourhood in Figure 4 decreases over time (the 
+figure is drawn assuming the neighbourhood remains centered on the same node, in practice the BMU will move 
+around according to the input vector being presented to the network) .</p>
+</font><p align="center"><font face="Arial"><img src="SOM%20tutorial%20part%201_3_files/Figure5.jpg" border="0" height="250" width="500"></font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<font face="Times New Roman">Figure 5</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<font face="Times New Roman">The ever shrinking radius.</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Over time the neighbourhood will shrink to the size of just 
+one node... the BMU.</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Now we know the radius, it's a simple matter to iterate 
+through all the nodes in the lattice to determine if they lay within the radius 
+or not. If a node is found to be within the neighbourhood then its weight vector 
+is adjusted as follows...</font></p>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<hr>
+
+ <p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center"><b><font color="#FFFFFF" face="Arial">
+<a href="http://www.ai-junkie.com/ann/som/som1.html">1</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som2.html">2</a>&nbsp;&nbsp; 3&nbsp;&nbsp;
+<a href="http://www.ai-junkie.com/ann/som/som4.html">4</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som5.html">5</a>&nbsp;&nbsp;
+<a href="http://www.ai-junkie.com/index.html">Home</a></font></b></p>
+
+ 
+ 
+</body></html>

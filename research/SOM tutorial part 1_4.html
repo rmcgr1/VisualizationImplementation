@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+ <meta name="Author" content="Mat Buckland">
+<meta name="Keywords" content="artificial intelligence neural network tutorial introduction ai">
+<meta name="Description" content="neural network tutorial in plain english">
+  
+<title>SOM tutorial part 1</title>
+
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+
+  <script type="text/javascript" src="SOM%20tutorial%20part%201_4_files/Dispatcher.html"></script>
+
+ <style fprolloverstyle="">A:hover {color: red; font-weight: bold}
+ </style>
+
+ </head>
+
+ <body alink="#FFFFFF" bgcolor="#000066" text="#C0C0C0">
+
+<p class="MsoNormal" align="center">
+<a href="http://www.ai-junkie.com/">
+<img src="SOM%20tutorial%20part%201_4_files/logo.jpg" border="0" height="78" width="469"></a></p>
+<hr>
+
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left"><b>
+<font color="#FFFFCC" face="Arial">Adjusting the Weights</font></b></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Every node within the BMU's neighbourhood (including the BMU) 
+has its weight vector&nbsp;adjusted according to the following equation:</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%201_4_files/equation4.gif" border="0" height="26" width="280"></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+Equation 3</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Where <font color="#FFFFFF"><i>t<b> </b></i></font>represents 
+the time-step and <i><font color="#FFFFFF">L</font></i> is a small variable 
+called the <i><font color="#FFFFCC">learning rate</font>,</i> which <i>
+<font color="#FFFFCC">decreases with time</font></i>. Basically, what this 
+equation is saying, is that the new adjusted weight for the node is 
+equal to the old weight (<font color="#FFFFFF"><b><i>W</i></b></font>), plus a 
+fraction of the difference (<i><font color="#FFFFFF">L</font></i>) between the 
+old weight and the input vector (<b><font color="#FFFFFF"><i>V</i></font></b>). 
+My, that was a bit of a mouthful, no wonder mathematicians prefer symbols!&nbsp;
+</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">The decay of the learning rate is calculated each iteration 
+using the 
+following equation:</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%201_4_files/equation3.gif" border="0" height="45" width="244"></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+Equation 4</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">The more observant amongst you will notice that this is the 
+same as the exponential decay function described in Equation 2, except this time 
+I'm using it to decay the learning rate. In code it looks like this:</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber1" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%"><font color="#FFFFFF" face="Courier New" size="2">
+      m_dLearningRate = constStartLearningRate * exp(-(double)m_iIterationCount/m_iNumIterations);</font></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">The learning rate at the start of training, </font>
+<font color="#FFFFFF" face="Courier New" size="2">constStartLearningRate</font><font color="#FFFFFF" face="Arial" size="2">,</font><font face="Arial"> 
+is set in the 'constants.h' file as 0.1. It then gradually decays over time so 
+that during the last few iterations it is close to zero.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<div align="center">
+  <p style="margin-top: 0; margin-bottom: 0" align="left"><font face="Arial">
+  <font color="#FF0000"><i>But Wait!</i></font> I've not been completely honest 
+  with you. Equation 3 is incorrect! You see, not only does the learning rate 
+  have to decay over time, but also, the effect of learning&nbsp; should be 
+  proportional to the distance a node is from the BMU. Indeed, at the edges of 
+  the BMUs neighbourhood, the learning process should have barely any effect at 
+  all! Ideally, the amount of learning should fade over distance similar to the 
+  Gaussian decay shown below.</font></p></div>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%201_4_files/graph1.jpg" border="0" height="141" width="200"></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">To achieve this, all it takes is a slight adjustment to 
+Equation 3.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%201_4_files/equation5.gif" border="0" height="26" width="332"></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+Equation 5</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">I've used the Greek capital letter theta,
+<font color="#FFFFFF">&#920;</font>, to represent the amount of influence a node's 
+distance from the BMU has on its learning. <font color="#FFFFFF">&#920;</font></font><font color="#FFFFFF" face="Times New Roman">(<i>t</i>)</font><font face="Times New Roman"> </font>
+<font face="Arial">is given by Equation 6.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+<img src="SOM%20tutorial%20part%201_4_files/equation6.gif" border="0" height="50" width="265"></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">
+Equation 6</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Where </font>
+<font color="#FFFFFF" face="Times New Roman" size="4"><i>dist</i></font><font face="Arial"> 
+is the distance a node is from the BMU and <font color="#FFFFFF">&#963;</font>, 
+is the width of the neighbourhood function as calculated by Equation 2. 
+Additionally, please note that
+<font color="#FFFFFF">&#920; </font>also decays over time.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<b><font color="#FFFFCC" face="Arial" size="4">Some Code To Peruse</font></b></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">One iteration through the entire learning process is 
+described by the  </font><font color="#FFFFFF" face="Courier New">Epoch</font><font face="Arial"> method of 
+the </font><font color="#FFFFFF" face="Courier New">Csom</font><font face="Arial"> 
+class. This method takes a reference to the 
+entire set of training data, picks out one input vector at random and then runs 
+through a single iteration of the process I've described in the last few pages. Here 
+is that method listed in its entirety. (Note that I've used distance squared values to 
+avoid all those nasty square roots although there is <i>loads</i> more scope for 
+speed improvements for all you tweakers out there.)</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<div align="center">
+  <center>
+  <table style="border-collapse: collapse" id="AutoNumber2" bgcolor="#000080" border="1" bordercolor="#111111" cellpadding="10" cellspacing="0" width="90%">
+    <tbody><tr>
+      <td width="100%"><font color="#FFFFFF" face="Courier New" size="2">
+      </font><p style="margin-top: 0; margin-bottom: 0" align="left"><font color="#FFFFFF" face="Courier New" size="2">bool 
+      Csom::Epoch(const vector&lt;vector&lt;double&gt; &gt; &amp;data)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">{</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //make sure the 
+      size of the input vector matches the size of each node's </font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //weight vector</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; if 
+      (data[0].size() != constSizeOfInputVector) return false;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //return if the 
+      training is complete</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; if (m_bDone) 
+      return true;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; //enter the 
+      training loop</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; if (--m_iNumIterations 
+      &gt; 0)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //chose a vector at random from the training set to be</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //this time-step's input vector</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; int 
+      ThisVector = RandInt(0, data.size()-1);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //present the vector to each node and determine the BMU</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      m_pWinningNode = FindBestMatchingNode(data[ThisVector]);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      //calculate the width of the neighbourhood for this timestep</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      m_dNeighbourhoodRadius = m_dMapRadius * exp(-(double)m_iIterationCount/m_dTimeConstant);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; //Now to 
+      adjust the weight vector of the BMU and its</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; 
+      //neighbours</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; //For each 
+      node calculate the m_dInfluence (Theta from equation 6 in</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; //the 
+      tutorial. If it is greater than zero adjust the node's weights</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; 
+      //accordingly</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; for (int 
+      n=0; n&lt;m_SOM.size(); ++n)</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      //calculate the Euclidean distance (squared) to this node from the</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      //BMU</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      double DistToNodeSq = (m_pWinningNode-&gt;X()-m_SOM[n].X()) *</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      (m_pWinningNode-&gt;X()-m_SOM[n].X()) +</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      (m_pWinningNode-&gt;Y()-m_SOM[n].Y()) *</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      (m_pWinningNode-&gt;Y()-m_SOM[n].Y());</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      double WidthSq = m_dNeighbourhoodRadius * m_dNeighbourhoodRadius;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      //if within the neighbourhood adjust its weights</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      if (DistToNodeSq &lt; (m_dNeighbourhoodRadius * m_dNeighbourhoodRadius))</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      //calculate by how much its weights are adjusted</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_dInfluence = exp(-(DistToNodeSq) / (2*WidthSq));</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+      m_SOM[n].AdjustWeights(data[ThisVector],</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      m_dLearningRate,</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ 
+      m_dInfluence);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp;&nbsp; 
+      }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; }//next 
+      node</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; //reduce 
+      the learning rate</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; 
+      m_dLearningRate = constStartLearningRate * exp(-(double)m_iIterationCount/m_iNumIterations);</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left"></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp; ++m_iIterationCount;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; else</font></p><font color="#FFFFFF" face="Courier New" size="2">
+      </font>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; {</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp;&nbsp;&nbsp; 
+      m_bDone = true;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; }</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">&nbsp; return true;</font></p>
+      <p style="margin-top: 0; margin-bottom: 0" align="left">
+      <font color="#FFFFFF" face="Courier New" size="2">}</font></p></td>
+    </tr>
+  </tbody></table>
+  </center>
+</div>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">And that's how the SOM algorithm does its magic!</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<b>
+<font color="#FFFFCC" face="Arial" size="4">Notes on the Accompanying Code</font></b></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">Although a colour is rendered by the computer using values 
+for each component (red, green and blue) from 0 to 255, the input vectors have 
+been adjusted so that each component has a value between 0 and 1. (This is to 
+match the range of the values used for the node's weights).</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">You can chose to use the training set shown in Figure 1 or a 
+training set made up of random colours by uncommenting the line "</font><font color="#FFFFFF" face="Courier New" size="2">//#define 
+RANDOM_TRAINING_SETS</font><font face="Arial">" found in 'constants.h'.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">You should try experimenting with different values for the 
+number of iterations and the initial learning rate to see how they effect the 
+algorithm.</font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+<font face="Arial">The code&nbsp; tweakers amongst you may like to experiment 
+with different decay functions for the learning rate, neighbourhood radius and 
+neighbourhood influence. There are large speed gains to be made there. </font></p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">
+&nbsp;</p>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+<hr>
+<p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="left">&nbsp;</p>
+
+ <p class="MsoNormal" style="margin-top: 0; margin-bottom: 0" align="center"><b><font color="#FFFFFF" face="Arial">
+ <a href="http://www.ai-junkie.com/ann/som/som1.html">1</a>&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som2.html">2</a>&nbsp;&nbsp;
+ <a href="http://www.ai-junkie.com/ann/som/som3.html">3</a>&nbsp;&nbsp; 4&nbsp;&nbsp; <a href="http://www.ai-junkie.com/ann/som/som5.html">5</a>&nbsp;&nbsp;
+ <a href="http://www.ai-junkie.com/index.html">Home</a></font></b></p>
+
+ 
+ 
+</body></html>

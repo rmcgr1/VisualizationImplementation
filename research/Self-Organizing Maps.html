@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+   <meta name="Author" content="Thomas E. Germano">
+   <meta name="GENERATOR" content="Mozilla/4.51 [en] (Win95; I) [Netscape]">
+   <title>Self-Organizing Maps</title>
+</head>
+<body>
+
+<center>
+<h1>
+Self Organizing Maps</h1></center>
+
+<center>
+<p><br>Tom Germano
+<br>March 23, 1999</p></center>
+
+<p>
+</p><hr width="100%">
+<h3>
+Table Of Conents</h3>
+
+<blockquote><a href="#Introduction">I. Introduction to Self-Organizing
+Maps</a>
+<br><a href="#Components">II. Components</a>
+<blockquote><a href="#Samples">A. Sample Data</a>
+<br><a href="#Weights">B. Weights</a></blockquote>
+<a href="#Main%20Algo">III. Main Algorithm</a>
+<blockquote><a href="#Init%20Weights">A. Initializing the Weights</a>
+<br><a href="#Get%20BMU">B. Get Best Matching Unit</a>
+<br><a href="#Scale%20Neighbors">C. Scale Neighbors</a>
+<blockquote><a href="#Determine%20Neighbors">1. Determining Neighbors</a>
+<br><a href="#Learning">2. Learning</a></blockquote>
+</blockquote>
+<a href="#Quality">IV. Determining the Quality of SOMs</a>
+<br><a href="#Java">V. Java Example</a>
+<br><a href="#Conclusions">VI. Conclusions</a>
+<blockquote><a href="#Advantages">A. Advantages</a>
+<br><a href="#Disadvantages">B. Disadvantages</a></blockquote>
+<a href="#Refs">VII. References</a>
+<blockquote><a href="#Books">A. Books</a>
+<br><a href="#Papers">B. Papers</a></blockquote>
+<a href="#Links">VIII. Links</a></blockquote>
+
+<hr width="100%">
+<h3>
+<a name="Introduction"></a>I. Introduction</h3>
+Self-organizing maps (SOMs) are a data visualization technique invented
+by Professor Teuvo Kohonen which reduce the dimensions of data through
+the use of self-organizing neural networks. The problem that data visualization
+attempts to solve&nbsp; is that humans simply cannot visualize high dimensional
+data as is so techniques are created to help us understand this high dimensional
+data. Two other techniques of reducing the dimensions of data that has
+been presented in this course has been N-Land and <a href="http://www.cs.wpi.edu/%7Ematt/research/MAVIS/">Multi-dimensional
+Scaling</a>. The way&nbsp; SOMs go about reducing dimensions is by producing
+a map of usually 1 or 2 dimensions which plot the similarities of the data
+by grouping similar data items together.&nbsp; So SOMs accomplish two things,
+they reduce dimensions and display similarities.
+<center>
+<p><img src="Self-Organizing%20Maps_files/final.jpg" height="197" width="200"></p></center>
+
+<p>Just to give you an idea of what a SOM looks like, here is an example
+of a SOM which I constructed.&nbsp; As you can see, like colors are grouped
+together such as the greens are all in the upper left hand corner and the
+purples are all grouped around the lower right and right hand side.
+<br>&nbsp;
+</p><h3>
+<a name="Components"></a>II. Components</h3>
+
+<blockquote>
+<h3>
+&nbsp;<a name="Samples"></a>A. Sample Data</h3>
+</blockquote>
+
+<center><img src="Self-Organizing%20Maps_files/colors.jpg" height="62" width="327"></center>
+
+<p>The first part of a SOM is the data. Above are some examples of 3 dimensional
+data which are commonly used when experimenting with SOMs. Here the colors
+are represented in three dimensions (red, blue, and green.) The idea of
+the self-organizing maps is to project the n-dimensional data (here it
+would be colors and would be 3 dimensions) into something that be better
+understood visually (in this case it would be a 2 dimensional image map).
+In this case one would expect the dark blue and the greys to end up near
+each other on a good map and yellow close to both the red and the green.
+<br>&nbsp;
+</p><blockquote>
+<h3>
+<a name="Weights"></a>B. Weights</h3>
+</blockquote>
+The second component to SOMs are the weight vectors. Each weight vector
+has two components to them which I have here attempted to show in the image
+below.&nbsp; The first part of a weight vector is its data. This is of
+the same dimensions as the sample vectors and the second part of a weight
+vector is its natural location. The good thing about colors is that the
+data can be shown by displaying the color, so in this case the color is
+the data, and the location is the x,y position of the pixel on the screen.
+<center>
+<p><img src="Self-Organizing%20Maps_files/weights.jpg" height="284" width="376"></p></center>
+
+<p>In this example, I tried to show what a 2D array of weight vectors would
+look like. This picture is a skewed view of a grid where you have the n-dimensional
+array for each weight and each weight has its own unique location in the
+grid. Weight vectors don’t necessarily have to be arranged in 2 dimensions,
+a lot of work has been done using SOMs of 1 dimension, but the data part
+of the weight must be of the same dimensions as the sample vectors.Weights
+are sometimes referred to as neurons since SOMs are actually neural networks.
+<br>&nbsp;
+</p><h3>
+<a name="Main Algo"></a>III. Main Algorithm</h3>
+The way that SOMs go about organizing themselves is by competeting for
+representation of the samples. Neurons are also allowed to change themselves
+by learning to become more like samples in hopes of winning the next competition.
+It is this selection and learning process that makes the weights organize
+themselves into a map representing similarities.
+<p>So with these two components (the sample and weight vectors), how can
+one order the weight vectors in such a way that they will represent the
+similarities of the sample vectors? This is accomplished by using&nbsp;
+the very simple algorithm shown here.
+</p><blockquote><a href="#Init%20Weights">Initialize Map</a>
+<br>For t from 0 to 1
+<blockquote>Randomly select a sample
+<br><a href="#Get%20BMU">Get best matching unit</a>
+<br><a href="#Scale%20Neighbors">Scale neighbors</a>
+<br>Increase t a small amount</blockquote>
+End for</blockquote>
+
+<p><br>The first step in constructing a SOM&nbsp; is to initialize the
+weight vectors. From there you select a sample vector randomly and search
+the map of weight vectors to find which weight best represents that sample.
+Since each weight vector has a location, it also has neighboring weights
+that are close to it. The weight that is chosen is rewarded by being able
+to become more like that randomly selected sample vector. In addition to
+this reward, the neighbors of that weight are also rewarded by being able
+to become more like the chosen sample vector. From this step we increase
+<i>t</i>
+some small amount because the number of neighbors and how much each weight
+can learn decreases over time. This whole process is then repeated a large
+number of times, usually more than 1000 times.
+</p><p>In the case of colors, the program would first select a color from the
+array of samples such as green, then search the weights for the location
+containing the greenest color. From there, the colors surrounding that
+weight are then made more green. Then another color is chosen, such as
+red, and the process continues.
+<br>&nbsp;
+</p><blockquote>
+<h3>
+<a name="Init Weights"></a>A. Initializing the Weights</h3>
+</blockquote>
+Here are screen shots of the three different ways which I decided to initialize
+the weight vector map. I should first mention the palette here. In the
+<a href="#Java">java
+program</a> below there are 6 intensities of red, blue, and green displayed,
+it really doesn’t take away from the visual experience. The actual values
+for the weights are floats, so they have a bigger range than the six values
+that are shown.
+<center>
+<p><img src="Self-Organizing%20Maps_files/init-0.jpg" height="173" width="175"><img src="Self-Organizing%20Maps_files/init-1.jpg" height="173" width="175"><img src="Self-Organizing%20Maps_files/init-2.jpg" height="173" width="175"></p></center>
+
+<p>There are a number of ways to initialize the weight vectors. The first
+you can see is just give each weight vector random values for its data.
+A screen of pixels with random red, blue, and green values are shown above
+on the left. Unfortunately calculating SOMs is very computationally expensive,
+so there are some variants of initializing the weights so that samples
+that you know for a fact are not similar start off far away. This way you
+need less iterations to produce a good map and can save yourself some time.
+</p><p>Here I made two other ways to initialize the weights in addition to
+the random one. This one is just putting red, blue, green, and black at
+all four corners and having them slowly fade toward the center.&nbsp; This
+other one is having red, green, and blue equally distant from one another
+and from the center.
+<br>&nbsp;
+</p><blockquote>
+<h3>
+<a name="Get BMU"></a>B. Get Best Matching Unit</h3>
+</blockquote>
+This is a very simple step, just go through all the weight vectors and
+calculate the distance from each weight to the chosen sample vector. The
+weight with the shortest distance is the winner. If there are more than
+one with the same distance, then the winning weight is chosen randomly
+among the weights with the shortest distance.&nbsp; There are a number
+of different ways for determining what distance actually means mathematically.&nbsp;
+The most common method is to use the Euclidean distance:
+<center><img src="Self-Organizing%20Maps_files/summat.jpg" height="89" width="105"></center>
+where <i>x[i]</i> is the data value at the <i>ith</i> data member of a
+sample and <i>n</i> is the number of dimensions to the sample vectors.
+<p>In the case of colors, if we can think of them as 3D points, each component
+being an axis. If we have chosen green which is of the value (0,6,0), the
+color light green (3,6,3) will be closer to green than red at (6,0,0).
+</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Light green = Sqrt((3-0)^2+(6-6)^2+(3-0)^2)
+= 4.24
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Red&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+= Sqrt((6-0)^2+(0-6)^2+(0-0)^2) =&nbsp; 8.49
+</p><p>So light green is now the best matching unit, but this operation of
+calculating distances and comparing them is done over the entire map and
+the wieght with the shortest distance to the sample vector is the winner
+and the BMU. The square root is not computed in the java program for speed
+optimization for this section.
+<br>&nbsp;
+</p><blockquote>
+<h3>
+<a name="Scale Neighbors"></a>C. Scale Neighbors</h3>
+
+<blockquote>
+<h3>
+<a name="Determine Neighbors"></a>1. Determining Neighbors</h3>
+</blockquote>
+</blockquote>
+There are actually two parts to scaling the neighboring weights: determining
+which weights are considered as neighbors and how much each weight can
+become more like the sample vector. The neighbors of a winning weight can
+be determined using a number of different methods. Some use concentric
+squares, others hexagons, I opted to use a gaussian function where every
+point with a value above zero is considered a neighbor.
+<p>As mentioned previously, the amount of neighbors decreases over time.
+This is done so samples can first move to an area where they will probably
+be, then they jockey for position. This process is similar to coarse adjustment
+followed by fine tuning. The function used to decrease the radius of influence
+doesn’t really matter as long as it decreases, I just used a linear function.
+</p><center>
+<p><img src="Self-Organizing%20Maps_files/guass3d.jpg" height="232" width="326"><img src="Self-Organizing%20Maps_files/g3dequ.jpg" height="68" width="297"></p></center>
+
+<p>This picture shows a plot of the function used. As the time progresses,
+the base goes towards the center, so there are less neighbors as time progresses.
+The initial radius is set really high, some value near the width or height
+of the map.
+<br>&nbsp;
+</p><blockquote>
+<blockquote>
+<h3>
+<a name="Learning"></a>2. Learning</h3>
+</blockquote>
+</blockquote>
+The second part to scaling the neighbors is the learning function. The
+winning weight is rewarded with becoming more like the sample vector.&nbsp;
+The neighbors also become more like the sample vector. An attribute of
+this learning process is that the farther away the neighbor is from the
+winning vector, the less it learns. The rate at which the amount a weight
+can learn decreases and can also be set to whatever you want. I chose to
+use a gaussian function. This function will return a value ranging between
+0 and 1, where each neighbor is then changed using the parametric equation.&nbsp;
+The new color is:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i>Current color</i>*(1.-<i>t</i>)
++ <i>sample vector</i>*<i>t</i>
+</p><p>So in the first iteration, the best matching unit will get a <i>t</i>
+of 1 for its learning function, so the weight will then come out of this
+process with the same exact values as the randomly selected sample.
+</p><p>Just as the amount of neighbors a weight has falls off, the amount a
+weight can learn also decreases with time. On the first iteration, the
+winning weight becomes the sample vector since <i>t</i> has a full range
+of from 0 to 1. Then as time progresses, the winning weight becomes slightly
+more like the sample where the maximum value of <i>t</i> decreases. The
+rate at which the amount a weight can learn falls of linearly. To depict
+this visually, in the previous plot, the amount a weight can learn is equivalent
+to how high the bump is at their location.&nbsp; As time progresses, the
+height of the bump will decrease. Adding this function to the neighborhood
+function will result in the height of the bump going down while the base
+of the bump shrinks.
+</p><p>So once a weight is determined the winner, the neighbors of that weight
+are found and each of those neighbors in addition to the winning weight
+change to become more like the sample vector.
+<br>&nbsp;
+</p><h3>
+<a name="Quality"></a>IV. Determining the Quality of SOMs</h3>
+
+<center><img src="Self-Organizing%20Maps_files/sp.jpg" height="200" width="200"></center>
+
+<p>Above is another example of a SOM generated by the <a href="http://davis.wpi.edu/%7Ematt/courses/soms/applet.html">java
+program</a> using 500 iterations. At first glance you will notice that
+similar colors are all grouped together yet again. However, this is not
+always the case as you can see that there are some colors who are surrounded
+by colors that are nothing like them at all. It may be easy to point this
+out with colors since this is something that we are familiar with, but
+if we were using more abstract data, how would we know that since two entities
+are close to each other means that they are similar and not that they are
+just there because of bad luck?
+</p><p>There is a very simple method for displaying where similarities lie
+and where they do not. In order to compute this we go through all the weights
+and determine how similar the neighbors are. This is done by calculating
+the distance that the weight vectors make between the each weight and each
+of its neighbors. With an average of these distances a color is then assigned
+to that location. This procedure is located in <a href="http://davis.wpi.edu/%7Ematt/courses/soms/Screen.java">Screen.java</a>
+and named <i>public void update_bw()</i>.
+</p><p>If the average distance were high, then the surrounding weights are
+very different and a dark color is assigned to the location of the weight.
+If the average distance is low, a lighter color is assigned. So in areas
+of the center of the blobs the colors are the same, so it should be white
+since all the neighbors are the same color. In areas between blobs where
+there are similarities it should be not white, but a light grey. Areas
+where the blobs are physically close to each other, but are not similar
+at all there should be black.
+</p><center>
+<p><img src="Self-Organizing%20Maps_files/sp.jpg" height="200" width="200"><img src="Self-Organizing%20Maps_files/sp-bw.jpg" height="200" width="200"></p></center>
+
+<p>As shown above, the ravines of black show where the colors may be physically
+close to each other on the map, but are very different from each other
+when it comes to the actual values of the weights. Areas where there is
+a light grey between the blobs represent a true similarity.&nbsp; In the
+pictures above, in the bottom right there is black surrounded by colors
+which are not very similar to it. When looking at the black and white similarity
+SOM, it shows that black is not similar to the other colors because there
+are lines of black representing no similarity between those two colors.
+Also in the top corner there is pink and nearby is a light green which
+are not very near each other in reality, but near each other on the colored
+SOM. Looking at the black and white SOM, it clearly shows that the two
+not very similar by having black in between the two colors.
+</p><p>With these average distances used to make the black and white map, we
+can actually assign each SOM a value that determines how good the image
+represents the similarities of the samples&nbsp; by simply adding these
+averages.
+<br>&nbsp;
+</p><h3>
+<a name="Java"></a>V. Java Example</h3>
+In order to help others understand how SOMs look when organizing themselves
+and how they look when they finally settle, I coded up this java applet
+called <a href="http://davis.wpi.edu/%7Ematt/courses/soms/applet.html">Self-Organizing Maps</a>. This program was
+programmed for <a href="http://www.javasoft.com/products/jdk/1.2/index.html">Sun’s
+JDK 1.2</a>, so in order to view it you will need to install the <a href="http://www.javasoft.com/products/plugin/index.html">Java
+Runtime Environment 1.2</a> .
+<p>The source is made up of the following three files:
+</p><blockquote><a href="http://davis.wpi.edu/%7Ematt/courses/soms/soms.java">soms.java</a>
+<br><a href="http://davis.wpi.edu/%7Ematt/courses/soms/Screen.java">Screen.java</a>
+<br><a href="http://davis.wpi.edu/%7Ematt/courses/soms/fpoint.java">fpoint.java</a></blockquote>
+The sources and HTML files are all bundled into this file: <a href="http://davis.wpi.edu/%7Ematt/courses/soms/wpi-soms.zip">wpi-soms.zip</a>
+<br>&nbsp;
+<h3>
+<a name="Conclusions"></a>VI. Conclusions</h3>
+
+<blockquote>
+<h3>
+&nbsp;<a name="Advantages"></a>A. Advantages</h3>
+</blockquote>
+Probably the best thing about SOMs that they are very easy to understand.
+It’s very simple, if they are close together and there is grey connecting
+them, then they are similar. If there is a black ravine between them, then
+they are different. Unlike Multidimensional Scaling or N-land, people can
+quickly pick up on how to use them in an effective manner.
+<p>Another great thing is that they work very well. As I have shown you
+they classify data well and then are easily evaluate for their own quality
+so you can actually calculated how good a map is and how strong the similarities
+between objects are.
+<br>&nbsp;
+</p><blockquote>
+<h3>
+<a name="Disadvantages"></a>B. Disadvantages</h3>
+</blockquote>
+One major problem with SOMs is getting the right data. Unfortunately you
+need a value for each dimension of each member of samples in order to generate
+a map. Sometimes this simply is not possible and often it is very difficult
+to acquire all of this data so this is a limiting feature to the use of
+SOMs often referred to as missing data.
+<p>Another problem is that every SOM is different and finds different similarites
+among the sample vectors. SOMs organize sample data so that in the final
+product, the samples are usually surrounded by simliar samples, however
+similar samples are not always near each other. If you have a lot of shades
+of purple, not always will you get one big group with all the purples in
+that cluster, sometimes the clusters will get split and there will be two
+groups of purple. Using colors we could tell that those two groups in reality
+are similar and that they just got split, but with most data, those two
+clusters will look totally unrelated. So a lot of maps need to be constructed
+in order to get one final good map.
+</p><center>
+<p><img src="Self-Organizing%20Maps_files/soml3a.jpg" height="254" width="201"><img src="Self-Organizing%20Maps_files/soml3c.jpg" height="255" width="201"></p></center>
+
+<p>Here’s an example of just this sort of exact problem happening.&nbsp;
+You can see in the picture on the left that there are three shades of purple
+that are all in one column. Yes those three colors are very similar, but
+two deep shades of purple are split by a lighter shade of purple. The deep
+purples are more similar to each other and should therefor be near one
+another as shown in the picture on the right.
+</p><p>The final major problem with SOMs is that they are very computationally
+expensive which is a major drawback since as the dimensions of the data
+increases, dimension reduction visualization techniques become more important,
+but unfortunately then time to compute them also increases. For calcuating
+that black and white similarity map, the more neighbors you use to calculate
+the distance the better similarity map you will get, but the number of
+distances the algorithm needs to compute increases exponentially.
+<br>&nbsp;
+</p><h3>
+<a name="Refs"></a>VII. References</h3>
+
+<blockquote>
+<h3>
+&nbsp;<a name="Books"></a>A. Books</h3>
+</blockquote>
+
+<ul>
+<li>
+Kohonen, T., <u>Self-Organization and Associative Memory</u>,&nbsp; New
+York : Springer-Verlag, 1988.</li>
+
+<li>
+Kohonen, T., <u>Self-Organizating Maps</u>,&nbsp; New York : Springer-Verlag,
+1997.</li>
+
+<h3>
+&nbsp;<a name="Papers"></a>B. Papers</h3>
+
+<li>
+<a href="http://www.cis.hut.fi/%7Etho/thesis/index.html">Honkela, T., "Self-Organizing
+Maps in Natural Language Processing", Espoo 1997</a></li>
+
+<li>
+<a href="http://www.cis.hut.fi/%7Esami/thesis/index.html">Kaski, S., "Data
+exploration using self-organizing maps. Acta Polytechnica Scandinavica,
+Mathematics, Computing and Management in Engineering Series No. 82, Espoo
+1997.</a></li>
+
+<br>&nbsp;</ul>
+
+<h3>
+<a name="Links"></a>VIII. Links</h3>
+
+<ul>
+<li>
+<a href="http://www.canis.uiuc.edu/%7Edpape/dlisom/">DLISOM</a> - program
+for visualizing data using SOMs with material on how they work</li>
+
+<li>
+<a href="http://130.233.148.14/Nissinen/Lecture_notes/1998/as74.155-lectures/SOMKALVOT_eng_v%C3%A4ri/index.htm">Self-Organizing
+Maps Presentation</a> - easy to understand presentation</li>
+
+<li>
+<a href="http://www.dcs.napier.ac.uk/hci/martin/msc/node6.html">Self-Organizing
+Maps</a> - another excellent paper on SOMs with some material on their
+relations to artificial and biological neural networks</li>
+
+<li>
+<a href="http://earth.let.uva.nl/%7Elouis/welldef/node17.html">Introduction
+to Kohonen Feature Maps</a></li>
+
+<li>
+<a href="http://www.astro.phys.ethz.ch/papers/csillaghy/munich/">Neural
+network-generated indexing features and retrieval effectiveness</a></li>
+
+<li>
+<a href="http://www.cis.hut.fi/projects/somtoolbox/somalg.html">Introduction
+to Self-Organizing Maps</a> - a very good introduction to SOMs</li>
+
+<li>
+<a href="http://saturn.med.nyu.edu:8080/%7Ekong/manuals/Xmipp/chapter7/index.html">Image
+Classification using SOMs</a> - also contrains information on learning
+vectors quantization</li>
+
+<li>
+<a href="http://websom.hut.fi/">WEBSOM</a> - using SOMs to organize information
+on the web</li>
+
+<li>
+<a href="http://www.cis.hut.fi/nnrc/worldmap.html">World Poverty Map</a>
+- an example of SOMs used to visualize similarities among countries based
+on their living conditions</li>
+
+<li>
+<a href="http://www-pu.informatik.uni-tuebingen.de/users/sperber/java-sucks/">Java
+Sucks</a></li>
+
+<li>
+<a href="http://blue.donga.ac.kr/bluette/index.html">Bluette</a> - a good
+freeware java IDE</li>
+</ul>
+
+<center><a href="http://davis.wpi.edu/%7Ematt/courses/talks99.html"><img src="Self-Organizing%20Maps_files/back.gif" alt="[Return to CS563 '99 Talks List]" border="0"></a></center>
+
+<p><br>
+
+
+</p></body></html>
