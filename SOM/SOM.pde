@@ -4,14 +4,21 @@ int grid_height = 20;
 int grid_width = 20;
 int grid_pix_height = height / grid_height;
 int grid_pix_width = width / grid_width;
+int iterations = 20;
 
 ArrayList<Node> nodes = new ArrayList<Node>();
+ArrayList<Sample> samples = new ArrayList<Sample>();
 
 boolean debug = true;
 
 void setup() {
   size(height, width);
   smooth();
+  frameRate(.5);
+
+  init_nodes();
+  init_samples();
+  init_map();
 
   /*Table table;
    table = loadTable("filtered_data.csv", "header");
@@ -49,11 +56,39 @@ Algorithm:
 
 void draw() {
   background(255);
-  init_map();
+
+
+  for (int t = 0; t < iterations; t++) {
+    //Need to randomize which sample is picked first?
+    for ( Sample sample : samples) {
+
+      Node winner = best_matching(sample);
+
+    }
+  } 
+
+
+  println("DONE");
+  noLoop();
 }
 
 
 //algorithm steps
+void init_samples() {
+  samples.add(new Sample("red", new int[] {
+    255, 0, 0
+  }
+  )); 
+  samples.add(new Sample("green", new int[] {
+    0, 255, 0
+  }
+  ));
+  samples.add(new Sample("blue", new int[] {
+    0, 0, 255
+  }
+  ));
+}
+
 void init_map() {
 
   //draw grid
@@ -67,25 +102,58 @@ void init_map() {
     line(0, i, width, i);
   }
 
+  //draw nodes
+  if (debug) {
+    for (Node n : nodes) {
+      fill_square(n.getX() n.getY(), n.getValues() );
+    }
+  }
+}
+
+void init_nodes() {
   //init nodes
   for (int x = 0; x < grid_width; x++) {
     for (int y = 0; y < grid_height; y++) {
-      int[] c = {int(random(255)), int(random(255)), int(random(255))};
-      nodes.add(new Node(x, y, c)); 
-      if (debug) {
-        fill_square(x, y, c);
-      }
+      int[] c = {
+        int(random(255)), int(random(255)), int(random(255))
+      };
+      nodes.add(new Node(x, y, c));
     }
   }
+}
+
+Node best_matching(Sample sample) {
+  //Randomize in case of tie?
+  Node closest = nodes.get(1);
+  float closest_val = 10000;
+
+  println("BM " + sample.getLabel());
+
+  for (Node n : nodes) {
+    int[] n_val = n.getValues();
+    int[] s_val = sample.getValues();
+    float dist =  sqrt((n_val[0]-s_val[0])^2 + (n_val[1]-s_val[1])^2 + (n_val[2]-s_val[2])^2);
+
+    if (dist < closest_val) {
+      closest_val = dist;
+      closest = n;
+    }
+  }
+  println(closest.getX() + ", " + closest.getY()); 
+  return closest;
 }
 
 //helper Functions
 void fill_square(int grid_x, int grid_y, int[] c) {
   fill(c[0], c[1], c[2]);
-  rect(grid_x * grid_width, grid_y * grid_height, grid_width, grid_height);
+  rect(grid_x * grid_pix_width, grid_y * grid_pix_height, grid_pix_width, grid_pix_height);
 }
 
-
+void redraw_grid() {
+  for (Node n: nodes) {
+    fill_square(n.getX(), n.getY(), n.getValues());
+  }
+}
 
 //object classes
 class Node {
@@ -99,12 +167,34 @@ class Node {
     this.values = values;
   }   
 
-  int getx() {
+  int getX() {
     return x;
   }
 
-  int gety() {
+  int getY() {
     return y;
+  }
+
+  int[] getValues() {
+    return values;
+  }
+}
+
+class Sample {
+  int[] values;
+  String label;
+
+  Sample(String label, int[] values) {
+    this.label = label;
+    this.values = values;
+  } 
+
+  String getLabel() {
+    return label;
+  }
+
+  int[] getValues() {
+    return values;
   }
 }
 
