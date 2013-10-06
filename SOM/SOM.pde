@@ -9,16 +9,22 @@ int iterations = 20;
 ArrayList<Node> nodes = new ArrayList<Node>();
 ArrayList<Sample> samples = new ArrayList<Sample>();
 
+PFont f;
+
 boolean debug = true;
 
 void setup() {
   size(height, width);
   smooth();
+
+  f = createFont("Helvetica", 11);
+  textAlign(CENTER); 
+
   frameRate(.5);
 
   init_nodes();
   init_samples();
-  init_map();
+
 
   /*Table table;
    table = loadTable("filtered_data.csv", "header");
@@ -56,14 +62,13 @@ Algorithm:
 
 void draw() {
   background(255);
-
+  init_map();
 
   for (int t = 0; t < iterations; t++) {
     //Need to randomize which sample is picked first?
     for ( Sample sample : samples) {
 
       Node winner = best_matching(sample);
-
     }
   } 
 
@@ -105,7 +110,7 @@ void init_map() {
   //draw nodes
   if (debug) {
     for (Node n : nodes) {
-      fill_square(n.getX() n.getY(), n.getValues() );
+      fill_square(n.getX(), n.getY(), n.getValues() );
     }
   }
 }
@@ -132,14 +137,19 @@ Node best_matching(Sample sample) {
   for (Node n : nodes) {
     int[] n_val = n.getValues();
     int[] s_val = sample.getValues();
-    float dist =  sqrt((n_val[0]-s_val[0])^2 + (n_val[1]-s_val[1])^2 + (n_val[2]-s_val[2])^2);
-
+    float dist =  sqrt(pow(n_val[0]-s_val[0],2) + pow(n_val[1]-s_val[1],2) + pow(n_val[2]-s_val[2],2));
+    println(dist);
     if (dist < closest_val) {
       closest_val = dist;
       closest = n;
     }
   }
-  println(closest.getX() + ", " + closest.getY()); 
+  println("BM " + sample.getLabel() + " " + closest.getX() + ", " + closest.getY()); 
+  
+  fill(0);
+  textSize(18);
+  text(sample.getLabel(), closest.getX() * grid_pix_width, closest.getY() * grid_pix_height);
+
   return closest;
 }
 
