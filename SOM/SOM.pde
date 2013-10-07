@@ -13,6 +13,11 @@ PFont f;
 
 boolean debug = true;
 
+//decreasing neighbor function
+// sig(t) = sig0 * exp(-t/lambda)
+float start_radius = 8;
+float radius = 0;
+
 void setup() {
   size(height, width);
   smooth();
@@ -63,12 +68,17 @@ Algorithm:
 void draw() {
   background(255);
   init_map();
-
+  float lambda = 0;
+  
   for (int t = 0; t < iterations; t++) {
     //Need to randomize which sample is picked first?
     for ( Sample sample : samples) {
-
       Node winner = best_matching(sample);
+      /*
+      lambda = float(t)/log(start_radius);
+      radius = start_radius * exp(float(-t)/lambda);
+      println(radius);
+      */
     }
   } 
 
@@ -138,7 +148,7 @@ Node best_matching(Sample sample) {
     int[] n_val = n.getValues();
     int[] s_val = sample.getValues();
     float dist =  sqrt(pow(n_val[0]-s_val[0],2) + pow(n_val[1]-s_val[1],2) + pow(n_val[2]-s_val[2],2));
-    println(dist);
+    
     if (dist < closest_val) {
       closest_val = dist;
       closest = n;
