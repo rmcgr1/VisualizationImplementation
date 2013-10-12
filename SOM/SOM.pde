@@ -4,7 +4,9 @@ int grid_height = 20;
 int grid_width = 20;
 int grid_pix_height = height / grid_height;
 int grid_pix_width = width / grid_width;
+
 int iterations = 20;
+int t = 0;
 
 ArrayList<Node> nodes = new ArrayList<Node>();
 ArrayList<Sample> samples = new ArrayList<Sample>();
@@ -15,7 +17,7 @@ boolean debug = true;
 
 //decreasing neighbor function
 // sig(t) = sig0 * exp(-t/lambda)
-float start_radius = 8;
+float start_radius = grid_width;
 float radius = 0;
 
 void setup() {
@@ -69,27 +71,54 @@ void draw() {
   background(255);
   init_map();
   float lambda = 0;
-  
-  
-  for (int t = 0; t < iterations; t++) {
-    //Need to randomize which sample is picked first?
-    for ( Sample sample : samples) {
-      Node winner = best_matching(sample);
-      /*
+  //Need to randomize which sample is picked first?
+  for ( Sample sample : samples) {
+    Node winner = best_matching(sample);
+    /*
       lambda = float(t)/log(start_radius);
-      radius = start_radius * exp(float(-t)/lambda);
-      println(radius);
-      */
-      radius = exp(-6.6666666*sqrt(sqrt(pow(x,2) + pow(y,2))))
-      //decrease this function lineraly?
-      radius = radius * 1/iterations;
-      
+     radius = start_radius * exp(float(-t)/lambda);
+     println(radius);
+     //OR:
+     radius = exp(-6.6666666*sqrt(sqrt(pow(x,2) + pow(y,2))))
+     //decrease this function lineraly?
+     radius = radius * 1/iterations;
+     */
+
+    //for the time being:
+    radius = radius - 1;
+
+    radius = 8;
+
+    //find all that are in that radius
+    for ( Node node : nodes) {
+      float dist = sqrt(pow(node.getX()-winner.getX(), 2) + pow(node.getY()-winner.getY(), 2));
+      //Converting from radius of pixels to boxes, hat if the grid is not square? 
+      if ((dist)  < radius) {
+        if (sample.getLabel() == "green") {
+          println(sample.getLabel() + "" + (dist / grid_pix_width));
+             
+        //Mark the space
+        fill(0);
+        textSize(18);
+        text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
+        }
+      }
     }
-  } 
+
+    //Adjust values according to: W(t+1) = W(t) + L(t)(V(t)-W(t))
+    //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
+  }
 
 
+
+  
+  //noLoop();
+  t = t + 1;
+  if (t >= iterations) {
+    noLoop();
+  }
+  
   println("DONE");
-  noLoop();
 }
 
 
@@ -147,23 +176,21 @@ Node best_matching(Sample sample) {
   Node closest = nodes.get(1);
   float closest_val = 10000;
 
-  println("BM " + sample.getLabel());
-
   for (Node n : nodes) {
     int[] n_val = n.getValues();
     int[] s_val = sample.getValues();
-    float dist =  sqrt(pow(n_val[0]-s_val[0],2) + pow(n_val[1]-s_val[1],2) + pow(n_val[2]-s_val[2],2));
-    
+    float dist =  sqrt(pow(n_val[0]-s_val[0], 2) + pow(n_val[1]-s_val[1], 2) + pow(n_val[2]-s_val[2], 2));
+
     if (dist < closest_val) {
       closest_val = dist;
       closest = n;
     }
   }
   println("BM " + sample.getLabel() + " " + closest.getX() + ", " + closest.getY()); 
-  
+
   fill(0);
   textSize(18);
-  text(sample.getLabel(), closest.getX() * grid_pix_width, closest.getY() * grid_pix_height);
+  text(sample.getLabel(), closest.getX() * grid_pix_width + grid_pix_width/2, closest.getY() * grid_pix_height + grid_pix_width/2);
 
   return closest;
 }
