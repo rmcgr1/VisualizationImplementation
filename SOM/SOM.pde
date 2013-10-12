@@ -70,6 +70,7 @@ void draw() {
   init_map();
   float lambda = 0;
   
+  
   for (int t = 0; t < iterations; t++) {
     //Need to randomize which sample is picked first?
     for ( Sample sample : samples) {
@@ -79,6 +80,10 @@ void draw() {
       radius = start_radius * exp(float(-t)/lambda);
       println(radius);
       */
+      radius = exp(-6.6666666*sqrt(sqrt(pow(x,2) + pow(y,2))))
+      //decrease this function lineraly?
+      radius = radius * 1/iterations;
+      
     }
   } 
 
