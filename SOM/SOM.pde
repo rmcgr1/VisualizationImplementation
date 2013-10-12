@@ -5,8 +5,8 @@ int grid_width = 20;
 int grid_pix_height = height / grid_height;
 int grid_pix_width = width / grid_width;
 
-int iterations = 20;
-int t = 0;
+int iterations = 50;
+int t = 1;
 
 ArrayList<Node> nodes = new ArrayList<Node>();
 ArrayList<Sample> samples = new ArrayList<Sample>();
@@ -15,12 +15,13 @@ PFont f;
 
 boolean debug = true;
 
-float learning_const = 10;
+float learning_const = 0.1;
 
 //decreasing neighbor function
 // sig(t) = sig0 * exp(-t/lambda)
+
 float start_radius = grid_width;
-float radius = grid_pix_width-6;
+float radius = grid_width;
 
 void setup() {
   size(height, width);
@@ -29,7 +30,7 @@ void setup() {
   f = createFont("Helvetica", 11);
   textAlign(CENTER); 
 
-  frameRate(.2);
+  frameRate(2);
 
   init_nodes();
   init_samples();
@@ -76,7 +77,7 @@ void draw() {
 
 
   //for the time being:
-  radius = radius - 1;
+  radius = radius - .2;
   println(radius);
 
 
@@ -98,37 +99,40 @@ void draw() {
     //find all that are in that radius
     for ( Node node : nodes) {
       float dist = sqrt(pow(node.getX()-winner.getX(), 2) + pow(node.getY()-winner.getY(), 2));
-      //Converting from radius of pixels to boxes, hat if the grid is not square? 
+      //Converting from radius of pixels to boxes, what if the grid is not square? 
       if ((dist)  < radius) {
+        //if (sample.getLabel() == "red") {
 
-        //Marking techniques
-        //fill(0);
-        //textSize(18);
-        //text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
-        //Or:
-        //fill_square(node.getX(), node.getY(), new int[]{0,0,0} );
+          //Marking techniques
+          //fill(0);
+          //textSize(18);
+          //text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
+          //Or:
+          //fill_square(node.getX(), node.getY(), new int[]{0,0,0} );
 
-        //Adjust values according to: W(t+1) = W(t) + theta(t)L(t)(V(t)-W(t))
-        //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
-        //influence of distance, theta = exp(-(dist)^2/2sig^2(t))
+          //Adjust values according to: W(t+1) = W(t) + theta(t)L(t)(V(t)-W(t))
+          //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
+          //influence of distance, theta = exp(-(dist)^2/2sig^2(t))
 
-        int[] n_val = node.getValues();
-        int[] s_val = sample.getValues();
-      
-        float learn_rate = learning_const * exp(-float(t)/float(iterations));
-        float theta = exp((-1 * pow(dist,2))/(2*pow(radius,2)*t));
-        
-        for(int i = 0; i < n_val.length; i++){
-           n_val[i] =  int(n_val[i] + learn_rate * theta * (s_val[i] - n_val[i]));          
-        }
-        println("");      
-        println("sample " + s_val[0]);
-        println("node " + n_val[0]);
-        println("learn_rate " + learn_rate);
-        println("theta " + theta)
-        println("new node " + n_val[0]);
-        
-        node.setValues(n_val);
+          int[] n_val = node.getValues();
+          int[] s_val = sample.getValues();
+          println("");      
+          println("sample " + s_val[0]);
+          println("node " + n_val[0]);
+
+          float learn_rate = learning_const * exp(-float(t)/float(iterations));
+          float theta = exp((-1 * pow(dist, 2))/(2*pow(radius, 2)*t));
+
+          for (int i = 0; i < n_val.length; i++) {
+            n_val[i] =  int(n_val[i] + learn_rate * theta * (s_val[i] - n_val[i]));
+          }
+
+          println("learn_rate " + learn_rate);
+          println("theta " + theta);
+          println("new node " + n_val[0]);
+
+          node.setValues(n_val);
+        //}
       }
     }
   }
@@ -136,13 +140,14 @@ void draw() {
 
 
 
-  noLoop();
+  //noLoop();
   t = t + 1;
   if (t >= iterations) {
+    println("DONE");
     noLoop();
   }
 
-  println("DONE");
+  println("STEP");
 }
 
 
