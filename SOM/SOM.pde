@@ -15,10 +15,12 @@ PFont f;
 
 boolean debug = true;
 
+float learning_const = 10;
+
 //decreasing neighbor function
 // sig(t) = sig0 * exp(-t/lambda)
 float start_radius = grid_width;
-float radius = 0;
+float radius = grid_pix_width-6;
 
 void setup() {
   size(height, width);
@@ -27,11 +29,11 @@ void setup() {
   f = createFont("Helvetica", 11);
   textAlign(CENTER); 
 
-  frameRate(.5);
+  frameRate(.2);
 
   init_nodes();
   init_samples();
-
+  init_map();
 
   /*Table table;
    table = loadTable("filtered_data.csv", "header");
@@ -69,8 +71,15 @@ Algorithm:
 
 void draw() {
   background(255);
-  init_map();
+  redraw_grid();
   float lambda = 0;
+
+
+  //for the time being:
+  radius = radius - 1;
+  println(radius);
+
+
   //Need to randomize which sample is picked first?
   for ( Sample sample : samples) {
     Node winner = best_matching(sample);
@@ -84,40 +93,55 @@ void draw() {
      radius = radius * 1/iterations;
      */
 
-    //for the time being:
-    radius = radius - 1;
 
-    radius = 8;
 
     //find all that are in that radius
     for ( Node node : nodes) {
       float dist = sqrt(pow(node.getX()-winner.getX(), 2) + pow(node.getY()-winner.getY(), 2));
       //Converting from radius of pixels to boxes, hat if the grid is not square? 
       if ((dist)  < radius) {
-        if (sample.getLabel() == "green") {
-          println(sample.getLabel() + "" + (dist / grid_pix_width));
-             
-        //Mark the space
-        fill(0);
-        textSize(18);
-        text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
+
+        //Marking techniques
+        //fill(0);
+        //textSize(18);
+        //text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
+        //Or:
+        //fill_square(node.getX(), node.getY(), new int[]{0,0,0} );
+
+        //Adjust values according to: W(t+1) = W(t) + theta(t)L(t)(V(t)-W(t))
+        //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
+        //influence of distance, theta = exp(-(dist)^2/2sig^2(t))
+
+        int[] n_val = node.getValues();
+        int[] s_val = sample.getValues();
+      
+        float learn_rate = learning_const * exp(-float(t)/float(iterations));
+        float theta = exp((-1 * pow(dist,2))/(2*pow(radius,2)*t));
+        
+        for(int i = 0; i < n_val.length; i++){
+           n_val[i] =  int(n_val[i] + learn_rate * theta * (s_val[i] - n_val[i]));          
         }
+        println("");      
+        println("sample " + s_val[0]);
+        println("node " + n_val[0]);
+        println("learn_rate " + learn_rate);
+        println("theta " + theta)
+        println("new node " + n_val[0]);
+        
+        node.setValues(n_val);
       }
     }
-
-    //Adjust values according to: W(t+1) = W(t) + L(t)(V(t)-W(t))
-    //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
   }
 
 
 
-  
-  //noLoop();
+
+  noLoop();
   t = t + 1;
   if (t >= iterations) {
     noLoop();
   }
-  
+
   println("DONE");
 }
 
@@ -186,7 +210,7 @@ Node best_matching(Sample sample) {
       closest = n;
     }
   }
-  println("BM " + sample.getLabel() + " " + closest.getX() + ", " + closest.getY()); 
+  //println("BM " + sample.getLabel() + " " + closest.getX() + ", " + closest.getY()); 
 
   fill(0);
   textSize(18);
@@ -225,6 +249,10 @@ class Node {
 
   int getY() {
     return y;
+  }
+
+  void setValues(int[] values) {
+    this.values = values;
   }
 
   int[] getValues() {
