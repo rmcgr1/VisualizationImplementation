@@ -5,7 +5,7 @@ int grid_width = 20;
 int grid_pix_height = height / grid_height;
 int grid_pix_width = width / grid_width;
 
-int iterations = 50;
+int iterations = 500;
 int t = 1;
 
 ArrayList<Node> nodes = new ArrayList<Node>();
@@ -30,28 +30,12 @@ void setup() {
   f = createFont("Helvetica", 11);
   textAlign(CENTER); 
 
-  frameRate(2);
+  frameRate(5);
 
   init_nodes();
-  init_samples();
+  //init_color_samples();
+  init_cancer_samples();
   init_map();
-
-  /*Table table;
-   table = loadTable("filtered_data.csv", "header");
-   
-   int count = 0;
-   for (TableRow row : table.rows()) {
-   xs[0][count] = row.getInt("Asian");
-   xs[1][count] = row.getInt("Black/African American");
-   xs[2][count] = row.getInt("Hispanic/Latino");
-   xs[3][count] = row.getInt("International");
-   xs[4][count] = row.getInt("Native Hawaiian/Other Pacific Islander");
-   xs[5][count] = row.getInt("Not Specified");
-   xs[6][count] = row.getInt("Two or More");
-   xs[7][count] = row.getInt("White");    
-   count = count + 1;
-   }
-   */
 }
 
 /*
@@ -76,9 +60,9 @@ void draw() {
   float lambda = 0;
 
 
-  //for the time being:
+  //linear decreasing radius function
   radius = radius - .2;
-  println(radius);
+  //println(radius);
 
 
   //Need to randomize which sample is picked first?
@@ -101,45 +85,43 @@ void draw() {
       float dist = sqrt(pow(node.getX()-winner.getX(), 2) + pow(node.getY()-winner.getY(), 2));
       //Converting from radius of pixels to boxes, what if the grid is not square? 
       if ((dist)  < radius) {
-        //if (sample.getLabel() == "red") {
 
-          //Marking techniques
-          //fill(0);
-          //textSize(18);
-          //text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
-          //Or:
-          //fill_square(node.getX(), node.getY(), new int[]{0,0,0} );
+        //Marking techniques
+        //fill(0);
+        //textSize(18);
+        //text("X", node.getX() * grid_pix_width, node.getY() * grid_pix_height);
+        //Or:
+        //fill_square(node.getX(), node.getY(), new int[]{0,0,0} );
 
-          //Adjust values according to: W(t+1) = W(t) + theta(t)L(t)(V(t)-W(t))
-          //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
-          //influence of distance, theta = exp(-(dist)^2/2sig^2(t))
+        //Adjust values according to: W(t+1) = W(t) + theta(t)L(t)(V(t)-W(t))
+        //Learning rate L(t)=L0*exp(-t/lambda) (exponential decay function)
+        //influence of distance, theta = exp(-(dist)^2/2sig^2(t))
 
-          int[] n_val = node.getValues();
-          int[] s_val = sample.getValues();
-          println("");      
-          println("sample " + s_val[0]);
-          println("node " + n_val[0]);
+        int[] n_val = node.getValues();
+        int[] s_val = sample.getValues();
+        
+        //println("sample " + s_val[0]);
+        //println("node " + n_val[0]);
 
-          float learn_rate = learning_const * exp(-float(t)/float(iterations));
-          float theta = exp((-1 * pow(dist, 2))/(2*pow(radius, 2)*t));
+        float learn_rate = learning_const * exp(-float(t)/float(iterations));
+        float theta = exp((-1 * pow(dist, 2))/(2*pow(radius, 2)*t));
 
-          for (int i = 0; i < n_val.length; i++) {
-            n_val[i] =  int(n_val[i] + learn_rate * theta * (s_val[i] - n_val[i]));
-          }
+        for (int i = 0; i < n_val.length; i++) {
+          n_val[i] =  int(n_val[i] + learn_rate * theta * (s_val[i] - n_val[i]));
+        }
 
-          println("learn_rate " + learn_rate);
-          println("theta " + theta);
-          println("new node " + n_val[0]);
+        //println("learn_rate " + learn_rate);
+        //println("theta " + theta);
+        //println("new node " + n_val[0]);
 
-          node.setValues(n_val);
-        //}
+        node.setValues(n_val);
       }
     }
   }
 
 
 
-
+  //println("STEP");  
   //noLoop();
   t = t + 1;
   if (t >= iterations) {
@@ -147,12 +129,47 @@ void draw() {
     noLoop();
   }
 
-  println("STEP");
+  //Make video
+  ///saveFrame("vid-####.jpg");
 }
 
 
 //algorithm steps
-void init_samples() {
+void init_cancer_samples() {
+  Table table;
+  table = loadTable("../data/usacancer_Ob.csv", "header");
+
+  println("Label   brcamort   unemploy   pctpoor");
+  int count = 0;
+  for (TableRow row : table.rows()) {
+    String label = row.getString("STATE_NAME");
+    int label2 = row.getInt("KEY");
+    float val1 = row.getFloat("rate_brcamort9397");
+    float val2 = row.getFloat("unemploy");
+    float val3 = row.getFloat("pctpoor");
+    count = count + 1;
+
+    val1 = scale_to_rgb(val1);
+    val2 = scale_to_rgb(val2);
+    val3 = scale_to_rgb(val3);
+    label = label + "_" + label2;
+
+    println(label + " " + val1 + " " + val2 + " " + val3); 
+
+    samples.add(new Sample(label, new int[] {
+      int(val1), int(val2), int(val3)
+    }
+    ));
+
+    if (count == 10) {
+      break;
+    }
+  }
+}
+
+
+
+void init_color_samples() {
   samples.add(new Sample("red", new int[] {
     255, 0, 0
   }
@@ -163,6 +180,14 @@ void init_samples() {
   ));
   samples.add(new Sample("blue", new int[] {
     0, 0, 255
+  }
+  ));
+  samples.add(new Sample("yellow", new int[] {
+    255, 255, 0
+  }
+  ));
+  samples.add(new Sample("white", new int[] {
+    255, 255, 255
   }
   ));
 }
@@ -215,8 +240,8 @@ Node best_matching(Sample sample) {
       closest = n;
     }
   }
-  //println("BM " + sample.getLabel() + " " + closest.getX() + ", " + closest.getY()); 
-
+  
+  //Mark where the best match is
   fill(0);
   textSize(18);
   text(sample.getLabel(), closest.getX() * grid_pix_width + grid_pix_width/2, closest.getY() * grid_pix_height + grid_pix_width/2);
@@ -234,6 +259,12 @@ void redraw_grid() {
   for (Node n: nodes) {
     fill_square(n.getX(), n.getY(), n.getValues());
   }
+}
+
+ 
+float scale_to_rgb(float val) {
+//transform values 0-100 to 0-255
+  return val / 100 * 255;
 }
 
 //object classes
