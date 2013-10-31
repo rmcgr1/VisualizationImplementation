@@ -1,11 +1,24 @@
-int height = 500;
-int width = 500;
-int grid_height = 20;
-int grid_width = 20;
+//UMBC 636 Data Visualization Algorithm Implementation
+//Ryan McGrath
+
+
+//configurable options
+int height = 920;
+int width = 920;
+int grid_height = 40;
+int grid_width = 40;
+int iterations = 500;
+float learning_const = 0.1;
+int sample_count = 25;
+
+String field1 = "rate_brcamort9397";
+String field2 = "unemploy";
+String field3 = "pctpoor";
+//end configurable options
+
 int grid_pix_height = height / grid_height;
 int grid_pix_width = width / grid_width;
 
-int iterations = 500;
 int t = 1;
 
 ArrayList<Node> nodes = new ArrayList<Node>();
@@ -14,8 +27,6 @@ ArrayList<Sample> samples = new ArrayList<Sample>();
 PFont f;
 
 boolean debug = true;
-
-float learning_const = 0.1;
 
 //decreasing neighbor function
 // sig(t) = sig0 * exp(-t/lambda)
@@ -99,7 +110,7 @@ void draw() {
 
         int[] n_val = node.getValues();
         int[] s_val = sample.getValues();
-        
+
         //println("sample " + s_val[0]);
         //println("node " + n_val[0]);
 
@@ -121,8 +132,7 @@ void draw() {
 
 
 
-  //println("STEP");  
-  //noLoop();
+
   t = t + 1;
   if (t >= iterations) {
     println("DONE");
@@ -130,7 +140,7 @@ void draw() {
   }
 
   //Make video
-  ///saveFrame("vid-####.jpg");
+  saveFrame("vid-####.jpg");
 }
 
 
@@ -144,13 +154,13 @@ void init_cancer_samples() {
   for (TableRow row : table.rows()) {
     String label = row.getString("STATE_NAME");
     int label2 = row.getInt("KEY");
-    float val1 = row.getFloat("rate_brcamort9397");
-    float val2 = row.getFloat("unemploy");
-    float val3 = row.getFloat("pctpoor");
+    float val1 = row.getFloat(field1);
+    float val2 = row.getFloat(field2);
+    float val3 = row.getFloat(field3);
     count = count + 1;
 
     val1 = scale_to_rgb(val1);
-    val2 = scale_to_rgb(val2);
+    val2 = scale_to_rgb(val2) + 30;
     val3 = scale_to_rgb(val3);
     label = label + "_" + label2;
 
@@ -161,7 +171,7 @@ void init_cancer_samples() {
     }
     ));
 
-    if (count == 10) {
+    if (count == sample_count) {
       break;
     }
   }
@@ -240,9 +250,9 @@ Node best_matching(Sample sample) {
       closest = n;
     }
   }
-  
+
   //Mark where the best match is
-  fill(0);
+  fill(180);
   textSize(18);
   text(sample.getLabel(), closest.getX() * grid_pix_width + grid_pix_width/2, closest.getY() * grid_pix_height + grid_pix_width/2);
 
@@ -261,9 +271,9 @@ void redraw_grid() {
   }
 }
 
- 
+
 float scale_to_rgb(float val) {
-//transform values 0-100 to 0-255
+  //transform values 0-100 to 0-255
   return val / 100 * 255;
 }
 
